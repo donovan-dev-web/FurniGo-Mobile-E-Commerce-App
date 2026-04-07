@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-secondary-container": "#644e2e",
+                  "on-tertiary": "#fbf8f8",
+                  "surface-bright": "#f9f9f9",
+                  "secondary": "#735b3a",
+                  "on-tertiary-fixed-variant": "#676666",
+                  "on-primary-container": "#3f5749",
+                  "tertiary-dim": "#535353",
+                  "on-error": "#fff7f6",
+                  "inverse-primary": "#d9f5e2",
+                  "on-error-container": "#752121",
+                  "on-background": "#2d3435",
+                  "on-secondary": "#fff8f2",
+                  "surface-container-highest": "#dde4e5",
+                  "on-surface-variant": "#5a6061",
+                  "secondary-fixed-dim": "#efd0a6",
+                  "surface-container-high": "#e4e9ea",
+                  "inverse-surface": "#0c0f0f",
+                  "error-dim": "#4e0309",
+                  "secondary-container": "#feddb3",
+                  "outline-variant": "#adb3b4",
+                  "surface-variant": "#dde4e5",
+                  "surface-container-low": "#f2f4f4",
+                  "outline": "#757c7d",
+                  "on-primary": "#e3feeb",
+                  "secondary-dim": "#664f2f",
+                  "primary-container": "#cee9d6",
+                  "secondary-fixed": "#feddb3",
+                  "on-tertiary-fixed": "#4a4949",
+                  "tertiary-fixed-dim": "#e7e5e4",
+                  "tertiary-container": "#f6f3f2",
+                  "inverse-on-surface": "#9c9d9d",
+                  "primary": "#4c6455",
+                  "surface-container": "#ebeeef",
+                  "surface-container-lowest": "#ffffff",
+                  "on-primary-fixed-variant": "#496152",
+                  "on-surface": "#2d3435",
+                  "error": "#9f403d",
+                  "surface": "#f9f9f9",
+                  "primary-fixed": "#cee9d6",
+                  "on-primary-fixed": "#2d4437",
+                  "primary-fixed-dim": "#c0dbc9",
+                  "error-container": "#fe8983",
+                  "surface-tint": "#4c6455",
+                  "on-secondary-fixed-variant": "#6f5836",
+                  "background": "#f9f9f9",
+                  "tertiary": "#5f5f5f",
+                  "surface-dim": "#d4dbdd",
+                  "on-tertiary-container": "#5c5b5b",
+                  "on-secondary-fixed": "#503c1d",
+                  "primary-dim": "#405849",
+                  "tertiary-fixed": "#f6f3f2"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "fontFamily": {
+                  "headline": ["Manrope"],
+                  "body": ["Inter"],
+                  "label": ["Inter"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body { font-family: 'Inter', sans-serif; }
+    h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Background Content (Simulated Home Screen) -->
+<div class="fixed inset-0 overflow-hidden bg-surface-container-low">
+<!-- TopAppBar Mock (Updated for Light Theme context) -->
+<header class="flex justify-between items-center px-6 h-16 w-full bg-surface-container-lowest border-b border-outline-variant/30">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface">menu</span>
+<span class="text-xl font-bold tracking-tighter text-on-surface font-headline">FurniGo</span>
+</div>
+<span class="material-symbols-outlined text-on-surface">shopping_bag</span>
+</header>
+<!-- Editorial Content Background (From SCREEN_27) -->
+<main class="p-8 space-y-12 blur-sm grayscale-[0.3]">
+<section>
+<div class="h-[400px] w-full bg-surface-container-lowest rounded-xl overflow-hidden relative shadow-sm">
+<img alt="" class="w-full h-full object-cover" data-alt="Minimalist Scandinavian living room with a deep green velvet sofa, oak wood coffee table, and soft morning light filtering through linen curtains" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAyMuWD7LTJ_1pZAF94Y2LGRRZgAQSl9TdaSJwNphv40E7pjWmMlp__FVFD79jsq6q2jfzIub3E4tiXLOyI9IN5r7i_NYoj2IiBNbzCxA_4x4tWRpLD1nmNkff6PNKQGOuSQVYtyiMXUvLRDRP5iO2f2fPame4xuk3h41B-prqS8M9dRNQBfqmi2_aCluYsqNnWe64isUmfg6hUjCpKSklDUfpjcl6zR9O8qlNIVX1aMG0VMGL3lm-k3JdLSSJU0T35IOAByiZ8Oc"/>
+<div class="absolute bottom-8 left-8">
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface">Sanctuaire Moderne</h1>
+<p class="text-on-surface-variant font-body">Collection Automne/Hiver 2024</p>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-2 gap-8">
+<div class="h-64 bg-surface-container rounded-xl"></div>
+<div class="h-64 bg-surface-container rounded-xl"></div>
+</div>
+</main>
+<!-- Dim Backdrop Overlay -->
+<div class="absolute inset-0 bg-black/20 backdrop-blur-[1px] z-40"></div>
+</div>
+<!-- Navigation Drawer Component (Updated for Light Theme & French translation) -->
+<aside class="fixed inset-y-0 left-0 z-50 flex flex-col py-8 bg-surface-container-lowest rounded-r-lg h-full w-80 shadow-[0px_12px_32px_rgba(0,0,0,0.1)] border-r border-outline-variant/20">
+<!-- Header Section (Profile) -->
+<div class="px-8 mb-10 flex flex-col items-start">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary/10">
+<img alt="Portrait de profil de l'utilisateur" class="w-full h-full object-cover" data-alt="Professional headshot of a man with light blonde hair and a charcoal wool sweater, soft studio lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWkOjUmfTbqITN3-Bthfn3tTUBcN1116UJvf-p4lk1mbPb_NefI8KqHv29rqpO7nZ8JKh-RaM2jJXqGFtDySMm0x_8SVacM_qKOlQFkcxAkZKZTiOB_ppqB3hAZxOnrxs6hMaiH1iXh7CgeVJDyhwYPyFBHBEiEO0x7yJYb_ogKHW52p0sqVxwL1ZB1xRK6y7dZvqXxfgK3ATP1eJ3KxPIht7nIi1ohn5i7ps0naY4WakK8kT_EC7mbi46qwXWGWoaNDT26SI2id4"/>
+</div>
+<div>
+<p class="text-on-surface font-bold text-lg leading-tight font-headline">Alex Nord</p>
+<p class="text-primary text-xs font-semibold tracking-wider font-label">MEMBRE PREMIUM</p>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span class="font-label">Oslo, NO</span>
+</div>
+</div>
+<!-- Navigation Items -->
+<nav class="flex-1 flex flex-col space-y-1">
+<!-- Salon (Item 1) -->
+<a class="flex items-center h-12 gap-4 transition-all duration-300 ease-in-out border-l-4 border-primary bg-primary-container/20 text-on-surface font-bold" href="#">
+<div class="w-12 flex justify-center items-center">
+<span class="material-symbols-outlined text-primary" data-icon="chair">chair</span>
+</div>
+<span class="font-['Manrope'] uppercase tracking-[0.05em] text-xs">Salon</span>
+</a>
+<!-- Chambre (Item 2) -->
+<a class="flex items-center h-12 gap-4 transition-all duration-300 ease-in-out text-on-surface-variant pl-4 hover:bg-surface-container-low hover:text-on-surface" href="#">
+<div class="w-8 flex justify-center items-center">
+<span class="material-symbols-outlined" data-icon="bed">bed</span>
+</div>
+<span class="font-['Manrope'] uppercase tracking-[0.05em] text-xs">Chambre</span>
+</a>
+<!-- Cuisine (Item 3) -->
+<a class="flex items-center h-12 gap-4 transition-all duration-300 ease-in-out text-on-surface-variant pl-4 hover:bg-surface-container-low hover:text-on-surface" href="#">
+<div class="w-8 flex justify-center items-center">
+<span class="material-symbols-outlined" data-icon="kitchen">kitchen</span>
+</div>
+<span class="font-['Manrope'] uppercase tracking-[0.05em] text-xs">Cuisine</span>
+</a>
+<!-- Bureau (Item 4) -->
+<a class="flex items-center h-12 gap-4 transition-all duration-300 ease-in-out text-on-surface-variant pl-4 hover:bg-surface-container-low hover:text-on-surface" href="#">
+<div class="w-8 flex justify-center items-center">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+</div>
+<span class="font-['Manrope'] uppercase tracking-[0.05em] text-xs">Bureau</span>
+</a>
+<div class="mt-8 mb-4 mx-8 border-t border-outline-variant/30"></div>
+<!-- Support (Item 5) -->
+<a class="flex items-center h-12 gap-4 transition-all duration-300 ease-in-out text-on-surface-variant pl-4 hover:bg-surface-container-low hover:text-on-surface" href="#">
+<div class="w-8 flex justify-center items-center">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</div>
+<span class="font-['Manrope'] uppercase tracking-[0.05em] text-xs">Support</span>
+</a>
+<!-- FAQ (Item 6) -->
+<a class="flex items-center h-12 gap-4 transition-all duration-300 ease-in-out text-on-surface-variant pl-4 hover:bg-surface-container-low hover:text-on-surface" href="#">
+<div class="w-8 flex justify-center items-center">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+</div>
+<span class="font-['Manrope'] uppercase tracking-[0.05em] text-xs">FAQ</span>
+</a>
+</nav>
+<!-- Footer Action -->
+<div class="mt-auto px-4">
+<a class="flex items-center h-12 gap-4 transition-all duration-300 ease-in-out text-on-surface-variant pl-4 hover:bg-error-container/10 hover:text-error" href="#">
+<div class="w-8 flex justify-center items-center">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+</div>
+<span class="font-['Manrope'] uppercase tracking-[0.05em] text-xs">Déconnexion</span>
+</a>
+</div>
+<!-- Brand Anchor in Drawer -->
+<div class="mt-8 px-8 opacity-60">
+<p class="text-sm font-bold text-on-surface tracking-tighter">FURNIGO STUDIO</p>
+<p class="text-[10px] text-on-surface-variant tracking-widest mt-1">DEPUIS 2024</p>
+</div>
+</aside>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform z-30">
+<span class="material-symbols-outlined text-2xl">search</span>
+</button>
+</body></html>

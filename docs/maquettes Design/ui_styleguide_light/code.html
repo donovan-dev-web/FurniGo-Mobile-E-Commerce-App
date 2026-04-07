@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#e4e9ea",
+                      "error-dim": "#4e0309",
+                      "on-primary-fixed-variant": "#496152",
+                      "on-primary-container": "#3f5749",
+                      "error-container": "#fe8983",
+                      "surface-variant": "#dde4e5",
+                      "error": "#9f403d",
+                      "on-surface-variant": "#5a6061",
+                      "on-primary": "#e3feeb",
+                      "tertiary-fixed-dim": "#e7e5e4",
+                      "inverse-surface": "#0c0f0f",
+                      "surface-dim": "#d4dbdd",
+                      "tertiary-dim": "#535353",
+                      "secondary-container": "#feddb3",
+                      "on-secondary-fixed": "#503c1d",
+                      "secondary-fixed": "#feddb3",
+                      "primary-fixed": "#cee9d6",
+                      "outline": "#757c7d",
+                      "tertiary": "#5f5f5f",
+                      "secondary-fixed-dim": "#efd0a6",
+                      "secondary-dim": "#664f2f",
+                      "surface": "#f9f9f9",
+                      "primary-fixed-dim": "#c0dbc9",
+                      "surface-tint": "#4c6455",
+                      "on-tertiary-fixed": "#4a4949",
+                      "inverse-on-surface": "#9c9d9d",
+                      "on-secondary": "#fff8f2",
+                      "tertiary-container": "#f6f3f2",
+                      "on-background": "#2d3435",
+                      "on-primary-fixed": "#2d4437",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-bright": "#f9f9f9",
+                      "tertiary-fixed": "#f6f3f2",
+                      "inverse-primary": "#d9f5e2",
+                      "outline-variant": "#adb3b4",
+                      "on-error-container": "#752121",
+                      "on-secondary-container": "#644e2e",
+                      "on-tertiary-container": "#5c5b5b",
+                      "background": "#f9f9f9",
+                      "primary-container": "#cee9d6",
+                      "on-secondary-fixed-variant": "#6f5836",
+                      "on-surface": "#2d3435",
+                      "surface-container": "#ebeeef",
+                      "on-tertiary": "#fbf8f8",
+                      "surface-container-highest": "#dde4e5",
+                      "on-tertiary-fixed-variant": "#676666",
+                      "primary": "#4c6455",
+                      "surface-container-low": "#f2f4f4",
+                      "secondary": "#735b3a",
+                      "on-error": "#fff7f6",
+                      "primary-dim": "#405849"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #2d3435;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface selection:bg-primary-container">
+<!-- Top Navigation Anchor -->
+<header class="bg-slate-50/80 backdrop-blur-xl fixed top-0 z-50 shadow-sm shadow-slate-200/50 w-full">
+<div class="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-emerald-900 active:scale-95 transition-transform duration-200" data-icon="menu">menu</span>
+<span class="font-['Manrope'] font-extrabold tracking-tighter text-2xl text-emerald-950 uppercase">FurniGo</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-emerald-900 font-bold font-['Manrope'] tracking-tight text-xl" href="#">Home</a>
+<a class="text-slate-500 hover:opacity-70 transition-opacity font-['Manrope'] tracking-tight text-xl" href="#">Collection</a>
+<a class="text-slate-500 hover:opacity-70 transition-opacity font-['Manrope'] tracking-tight text-xl" href="#">Saved</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-emerald-900 active:scale-95 transition-transform duration-200" data-icon="shopping_bag">shopping_bag</span>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto space-y-24">
+<!-- Header Section -->
+<section class="space-y-4">
+<p class="text-primary font-semibold tracking-widest uppercase text-xs">Design System v1.0</p>
+<h1 class="text-6xl md:text-8xl font-headline font-extrabold tracking-tighter text-on-surface leading-none">The Curated Sanctuary.</h1>
+<p class="max-w-2xl text-on-surface-variant font-body text-lg leading-relaxed">
+                A visual language built for digital editorial experiences. Blending Scandinavian minimalism with high-end furniture aesthetics.
+            </p>
+</section>
+<!-- Typography Section -->
+<section class="space-y-12">
+<div class="flex items-end justify-between border-b border-outline-variant/15 pb-4">
+<h2 class="text-3xl font-headline font-bold text-on-surface">01 Typography</h2>
+<span class="text-sm text-outline font-label uppercase tracking-widest">Typeface: Manrope &amp; Inter</span>
+</div>
+<div class="grid gap-12">
+<div class="space-y-2">
+<p class="text-xs text-outline font-label uppercase">Display Large (Manrope)</p>
+<p class="text-6xl md:text-8xl font-headline font-extrabold tracking-tighter leading-none">Nordic Minimalist</p>
+</div>
+<div class="space-y-2">
+<p class="text-xs text-outline font-label uppercase">Headline Medium (Manrope)</p>
+<p class="text-3xl md:text-5xl font-headline font-bold tracking-tight">Sustainable Craftsmanship</p>
+</div>
+<div class="space-y-2">
+<p class="text-xs text-outline font-label uppercase">Body Large (Inter)</p>
+<p class="text-xl font-body text-on-surface-variant leading-relaxed max-w-3xl">
+                        Handcrafted with precision using ethically sourced solid oak and premium linen textures for lasting comfort.
+                    </p>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<p class="text-xs text-outline font-label uppercase">Label Medium (Inter)</p>
+<p class="text-sm font-medium tracking-widest uppercase">Add to shopping bag</p>
+</div>
+<div class="space-y-2">
+<p class="text-xs text-outline font-label uppercase">Caption (Inter)</p>
+<p class="text-xs text-on-surface-variant italic">Product dimensions: 80cm x 95cm x 110cm</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Color Palette Section -->
+<section class="space-y-12">
+<div class="flex items-end justify-between border-b border-outline-variant/15 pb-4">
+<h2 class="text-3xl font-headline font-bold text-on-surface">02 Color Palette</h2>
+<span class="text-sm text-outline font-label uppercase tracking-widest">Tonal Depth Strategy</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="space-y-3">
+<div class="h-40 w-full rounded-xl bg-primary shadow-sm flex items-end p-4">
+<span class="text-on-primary font-bold text-sm">Primary Sage</span>
+</div>
+<p class="text-xs font-mono text-outline">#4C6455</p>
+</div>
+<div class="space-y-3">
+<div class="h-40 w-full rounded-xl bg-surface-container-low border border-outline-variant/10 flex items-end p-4">
+<span class="text-on-surface font-bold text-sm">Surface Low</span>
+</div>
+<p class="text-xs font-mono text-outline">#F2F4F4</p>
+</div>
+<div class="space-y-3">
+<div class="h-40 w-full rounded-xl bg-secondary-container flex items-end p-4">
+<span class="text-on-secondary-container font-bold text-sm">Secondary Clay</span>
+</div>
+<p class="text-xs font-mono text-outline">#FEDDB3</p>
+</div>
+<div class="space-y-3">
+<div class="h-40 w-full rounded-xl bg-surface-container-lowest shadow-lg shadow-black/5 flex items-end p-4">
+<span class="text-on-surface font-bold text-sm">Pure White</span>
+</div>
+<p class="text-xs font-mono text-outline">#FFFFFF</p>
+</div>
+</div>
+</section>
+<!-- Buttons Section -->
+<section class="space-y-12">
+<div class="flex items-end justify-between border-b border-outline-variant/15 pb-4">
+<h2 class="text-3xl font-headline font-bold text-on-surface">03 Interaction</h2>
+<span class="text-sm text-outline font-label uppercase tracking-widest">Radius: 24px (XL)</span>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+<div class="space-y-4">
+<p class="text-xs text-outline font-label uppercase">Primary Action</p>
+<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl shadow-md hover:bg-primary-dim transition-colors active:scale-95">
+                        Purchase Now
+                    </button>
+</div>
+<div class="space-y-4">
+<p class="text-xs text-outline font-label uppercase">Secondary</p>
+<button class="w-full bg-secondary-container text-on-secondary-container font-bold py-4 rounded-xl hover:opacity-90 transition-opacity active:scale-95">
+                        Add to Wishlist
+                    </button>
+</div>
+<div class="space-y-4">
+<p class="text-xs text-outline font-label uppercase">Outline</p>
+<button class="w-full border-2 border-outline-variant/30 text-on-surface font-bold py-4 rounded-xl hover:bg-surface-container-low transition-colors active:scale-95">
+                        View Details
+                    </button>
+</div>
+<div class="space-y-4">
+<p class="text-xs text-outline font-label uppercase">Floating Action</p>
+<button class="w-16 h-16 bg-primary text-on-primary rounded-full shadow-xl shadow-primary/20 flex items-center justify-center hover:scale-105 transition-transform active:scale-90 mx-auto">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Forms & Sample Section -->
+<section class="grid lg:grid-cols-2 gap-16">
+<!-- Form Components -->
+<div class="space-y-12">
+<div class="flex items-end justify-between border-b border-outline-variant/15 pb-4">
+<h2 class="text-3xl font-headline font-bold text-on-surface">04 Inputs</h2>
+</div>
+<div class="space-y-8">
+<div class="space-y-2">
+<label class="text-xs text-outline font-label uppercase pl-1">Search Products</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary/40 rounded-xl py-4 pl-12 pr-4 transition-all" placeholder="E.g. Nordic Lounge" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs text-outline font-label uppercase pl-1">Quantity</label>
+<div class="flex items-center justify-between bg-surface-container-low rounded-xl px-4 py-3">
+<span class="material-symbols-outlined cursor-pointer text-outline hover:text-on-surface" data-icon="remove">remove</span>
+<span class="font-bold text-lg">01</span>
+<span class="material-symbols-outlined cursor-pointer text-outline hover:text-on-surface" data-icon="add">add</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs text-outline font-label uppercase pl-1">Stock Status</label>
+<div class="flex items-center gap-2 bg-primary-container/30 rounded-xl px-4 py-4">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-sm font-bold text-primary uppercase tracking-tight">Available Now</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card Showcase -->
+<div class="space-y-12">
+<div class="flex items-end justify-between border-b border-outline-variant/15 pb-4">
+<h2 class="text-3xl font-headline font-bold text-on-surface">05 Component</h2>
+<span class="text-sm text-outline font-label uppercase tracking-widest">Product Card</span>
+</div>
+<div class="relative group max-w-sm mx-auto">
+<!-- Overlapping image card design from DS guidelines -->
+<div class="bg-surface-container-low rounded-[32px] p-6 transition-transform duration-500 hover:-translate-y-2">
+<div class="relative overflow-visible aspect-square mb-8">
+<div class="absolute -top-8 -right-4 bg-secondary-container/50 blur-3xl w-48 h-48 rounded-full z-0"></div>
+<img class="relative z-10 w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700" data-alt="Modern mid-century wooden lounge chair with light grey linen cushions in a brightly lit minimalist Scandinavian studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA405pdBQaHZboKp11yVYrC_IBeI3mjxIaQdgsVx08PyZuYgD8_U1mg9XnGIFHEnojWMa3ccc2K-nkTMhE_ppZCIaA7UwFuimZH-IrxKrApT0rZJTd6tzzA_7qsbq5UbHQzj1J384hgBJTwVLBWOTVK1LOUrQTfP36LqsNJLNjQjlJl3gGS0ThlQoQrA1b7DinQbBq-DigpS8LJ596cfcnn6hVHIC_ez2H64mbfQOvM1lYhBbzsIxB9VNlpeSpdffBTazihDg2mrTA"/>
+</div>
+<div class="space-y-4 relative z-10">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-headline font-bold text-on-surface">Nordic Lounge</h3>
+<p class="text-sm text-on-surface-variant">Solid Oak / Light Grey Linen</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-1 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold">4.9</span>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<p class="text-3xl font-headline font-extrabold text-primary">$850.00</p>
+<button class="w-12 h-12 bg-on-surface text-surface rounded-2xl flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 backdrop-blur-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.03)] rounded-t-3xl">
+<div class="flex flex-col items-center justify-center text-emerald-950 bg-slate-100 rounded-2xl px-5 py-2 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="home_max">home_max</span>
+<span class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest mt-1">Collection</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest mt-1">Saved</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest mt-1">Profile</span>
+</div>
+</nav>
+</body></html>

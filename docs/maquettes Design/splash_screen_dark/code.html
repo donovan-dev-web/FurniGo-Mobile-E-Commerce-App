@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FurniGo | The Curated Sanctuary</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Manrope & Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Manrope:wght@300;500;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-dim": "#405849",
+                    "on-secondary-container": "#e9e1d5",
+                    "on-surface-variant": "#adb3b4",
+                    "on-tertiary-fixed-variant": "#676666",
+                    "on-surface": "#f2f4f4",
+                    "tertiary-fixed": "#f6f3f2",
+                    "secondary-dim": "#664f2f",
+                    "primary": "#8fb09c",
+                    "surface-tint": "#8fb09c",
+                    "on-tertiary-fixed": "#4a4949",
+                    "surface-container-high": "#2d3435",
+                    "tertiary-fixed-dim": "#e7e5e4",
+                    "secondary-container": "#4a3a24",
+                    "on-primary-fixed-variant": "#496152",
+                    "background": "#0c0f0f",
+                    "secondary-fixed-dim": "#efd0a6",
+                    "primary-fixed": "#cee9d6",
+                    "on-primary": "#1a2a20",
+                    "on-background": "#f2f4f4",
+                    "surface-container-low": "#181d1e",
+                    "on-secondary-fixed": "#503c1d",
+                    "surface-container-highest": "#373d3e",
+                    "secondary-fixed": "#feddb3",
+                    "tertiary": "#a0a0a0",
+                    "outline": "#8a9293",
+                    "inverse-on-surface": "#2d3435",
+                    "inverse-surface": "#e1e3e3",
+                    "primary-container": "#364a3d",
+                    "tertiary-dim": "#535353",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-container": "#cee9d6",
+                    "error-container": "#93000a",
+                    "inverse-primary": "#4c6455",
+                    "on-tertiary": "#2d2d2d",
+                    "surface-dim": "#0c0f0f",
+                    "on-error": "#690005",
+                    "error-dim": "#ffb4ab",
+                    "surface": "#0c0f0f",
+                    "surface-variant": "#3f484a",
+                    "on-secondary": "#402d11",
+                    "surface-bright": "#343a3b",
+                    "on-primary-fixed": "#072112",
+                    "surface-container-lowest": "#070909",
+                    "outline-variant": "#3f484a",
+                    "error": "#ffb4ab",
+                    "primary-fixed-dim": "#c0dbc9",
+                    "secondary": "#dfc39c",
+                    "tertiary-container": "#444444",
+                    "on-tertiary-container": "#f6f3f2",
+                    "on-secondary-fixed-variant": "#6f5836",
+                    "surface-container": "#1d2324"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .loading-dot {
+            width: 4px;
+            height: 4px;
+            background-color: #8fb09c;
+            border-radius: 50%;
+            margin: 0 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Splash Screen Container -->
+<main class="relative h-screen w-full flex flex-col items-center justify-between overflow-hidden">
+<!-- Subtle Background Texture/Pattern (Atmospheric Scandinavian light - Adjusted for Dark Mode) -->
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+<div class="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-secondary-container blur-[120px]"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary-container blur-[100px]"></div>
+</div>
+<!-- Upper Spacing Anchor -->
+<div class="flex-1"></div>
+<!-- Central Identity Cluster -->
+<div class="relative z-10 flex flex-col items-center">
+<!-- Stylized Furniture Icon (The Blueprint) -->
+<div class="mb-8 w-20 h-20 flex items-center justify-center bg-surface-container-high shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-3xl border border-white/5">
+<span class="material-symbols-outlined text-primary text-5xl" data-icon="chair">chair</span>
+</div>
+<!-- Brand Logo from JSON Integrity (FurniGo) -->
+<div class="flex flex-col items-center space-y-1">
+<h1 class="font-headline text-5xl font-extrabold tracking-tighter text-on-surface italic">
+                    FurniGo
+                </h1>
+<p class="font-label text-xs uppercase tracking-[0.3em] text-on-surface-variant/50 font-medium">
+                    The Curated Sanctuary
+                </p>
+</div>
+</div>
+<!-- Bottom Transactional Anchor -->
+<div class="flex-1 flex flex-col items-center justify-end pb-16">
+<div class="flex flex-col items-center space-y-6">
+<!-- Loading State -->
+<div class="flex items-center">
+<span class="font-label text-sm font-medium tracking-widest text-on-surface-variant/80">Loading...</span>
+</div>
+<!-- Minimal Decorative Spinner Alternative -->
+<div class="flex justify-center items-center h-1 w-16 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full w-1/3 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Ambient Photography Bleed (Editorial touch - Adjusted opacity for dark mode) -->
+<div class="absolute bottom-[-100px] left-[-40px] w-64 h-80 opacity-10 rotate-12 pointer-events-none grayscale brightness-75">
+<img alt="editorial chair close-up" class="w-full h-full object-cover rounded-[48px]" data-alt="close-up of a designer wooden chair with soft morning light hitting the grain texture and minimalist room background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwz-d1EMDPfBc5QbcGFrSVCrjBBXStDVG7S22Nm8PGRjLYeCDs5ZOw1IekEp5kjdg0xESSnP38AC1KrsXcDbJeFxj0BQAvypLS-Tf5nt07wF0qxHkEtx6YwQns_osTCcgByN0OdBO2gE3_NPUZt7TKM6sAs-Z26SAophZDZ_HCB83xNCP84h6Xz7TfSV-dBtpDx8KEEDOvDAcx2OGc7fSP9Z786wprz6tJOvTLTmTyZeQijliK1zRMWn30pJpDqyCQxDaNKf4iKqk"/>
+</div>
+<div class="absolute top-[-80px] right-[-60px] w-72 h-72 opacity-[0.05] -rotate-6 pointer-events-none grayscale brightness-75">
+<img alt="minimalist interior" class="w-full h-full object-cover rounded-full" data-alt="modern minimalist living room corner with a large green plant and soft linen curtains in warm scandinavian daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU5M4CkwrTSt7loRfU-3MoEL0J0_EhyzR2xayoxhh4poudtwl1NBMPsECpyekUrTdFmYnJ0rtOwhYvgUBgqx2oNUwg4c0UgFoOorOZPVqnlPoe3fIAm1jtJd9tpDayYqlxLKmUhWDcW-mofc_6WzfzexKm3AiWDywXi6xB9WzgIqRg9PWEyKTBo8hmwPw8CgLeEvbyZWW4ZJnVvzKyk-UeGQQyDLlcM0bbEuJLFjqvWNjciPziV2rNbMLum_alN8xSdN6OQ6T7eDc"/>
+</div>
+</main>
+</body></html>

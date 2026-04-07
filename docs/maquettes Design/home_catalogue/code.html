@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-dim": "#405849",
+                    "on-secondary-container": "#644e2e",
+                    "on-surface-variant": "#5a6061",
+                    "on-tertiary-fixed-variant": "#676666",
+                    "on-surface": "#2d3435",
+                    "tertiary-fixed": "#f6f3f2",
+                    "secondary-dim": "#664f2f",
+                    "primary": "#4c6455",
+                    "surface-tint": "#4c6455",
+                    "on-tertiary-fixed": "#4a4949",
+                    "surface-container-high": "#e4e9ea",
+                    "tertiary-fixed-dim": "#e7e5e4",
+                    "secondary-container": "#feddb3",
+                    "on-primary-fixed-variant": "#496152",
+                    "background": "#f9f9f9",
+                    "secondary-fixed-dim": "#efd0a6",
+                    "primary-fixed": "#cee9d6",
+                    "on-primary": "#e3feeb",
+                    "on-background": "#2d3435",
+                    "surface-container-low": "#f2f4f4",
+                    "on-secondary-fixed": "#503c1d",
+                    "surface-container-highest": "#dde4e5",
+                    "secondary-fixed": "#feddb3",
+                    "tertiary": "#5f5f5f",
+                    "outline": "#757c7d",
+                    "inverse-on-surface": "#9c9d9d",
+                    "inverse-surface": "#0c0f0f",
+                    "primary-container": "#cee9d6",
+                    "tertiary-dim": "#535353",
+                    "on-error-container": "#752121",
+                    "on-primary-container": "#3f5749",
+                    "error-container": "#fe8983",
+                    "inverse-primary": "#d9f5e2",
+                    "on-tertiary": "#fbf8f8",
+                    "surface-dim": "#d4dbdd",
+                    "on-error": "#fff7f6",
+                    "error-dim": "#4e0309",
+                    "surface": "#f9f9f9",
+                    "surface-variant": "#dde4e5",
+                    "on-secondary": "#fff8f2",
+                    "surface-bright": "#f9f9f9",
+                    "on-primary-fixed": "#2d4437",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#adb3b4",
+                    "error": "#9f403d",
+                    "primary-fixed-dim": "#c0dbc9",
+                    "secondary": "#735b3a",
+                    "tertiary-container": "#f6f3f2",
+                    "on-tertiary-container": "#5c5b5b",
+                    "on-secondary-fixed-variant": "#6f5836",
+                    "surface-container": "#ebeeef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9f9; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-xl">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-stone-800 dark:text-stone-200" data-icon="menu">menu</span>
+</div>
+<h1 class="font-['Manrope'] text-2xl font-black text-stone-900 dark:text-stone-50 italic">FurniGo</h1>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-stone-800 dark:text-stone-200" data-icon="search">search</span>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-32 px-6">
+<!-- Editorial Hero -->
+<section class="mb-10">
+<div class="relative overflow-hidden rounded-3xl h-[240px] bg-surface-container-low flex items-end p-8">
+<img alt="Scandinavian living room" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-80" data-alt="Modern minimalist living room with an olive green velvet sofa, oak wood flooring, and soft afternoon sunlight through large windows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACAG5SPkL_H57DnCMUaUfx5s10GZIAzRI4Drepnt9tlJMZRzHxHqehQ_31Z9zwFxgD0L3fj_UebyeHFcn78PFUyu8wF2bkPOs0JOFUlmj0NXRAAcrO6lRGNrRwVrZ_UvBQ3ruK6DyIFL8fqi6sPtQQuRE_r5tzA2gCuk5O-YEuuxMDd1GeNhWhndHQ-hVTF-i_eltHqDDSMvTcRoJQ5OaHZzTlC4rrASm_J6DGGzH-3xeb2037qYluV0wBQ78aLjMK6_aKTIJNDoU"/>
+<div class="relative z-10">
+<p class="text-on-surface-variant font-medium text-xs tracking-widest uppercase mb-2">Collection 2024</p>
+<h2 class="font-headline text-4xl font-extrabold tracking-tight leading-none text-on-surface">Épure &amp; <br/>Confort.</h2>
+</div>
+</div>
+</section>
+<!-- Categories Filter -->
+<section class="mb-8 -mx-6">
+<div class="flex overflow-x-auto px-6 gap-3 hide-scrollbar">
+<button class="px-6 py-2.5 rounded-full bg-primary text-on-primary text-sm font-semibold whitespace-nowrap shadow-sm">Tout</button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant text-sm font-medium whitespace-nowrap hover:bg-surface-container transition-colors">Salon</button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant text-sm font-medium whitespace-nowrap hover:bg-surface-container transition-colors">Chambre</button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant text-sm font-medium whitespace-nowrap hover:bg-surface-container transition-colors">Bureau</button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant text-sm font-medium whitespace-nowrap hover:bg-surface-container transition-colors">Cuisine</button>
+</div>
+</section>
+<!-- Product Grid -->
+<section>
+<div class="flex justify-between items-baseline mb-6">
+<h3 class="font-headline text-2xl font-bold tracking-tight">Nouveautés</h3>
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">Voir Tout</span>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-8">
+<!-- Card 1 -->
+<div class="flex flex-col group">
+<div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-4 bg-surface-container-low transition-transform duration-300 group-active:scale-95">
+<img alt="Sofa Nordique" class="w-full h-full object-cover" data-alt="A clean, minimalist Scandinavian style sofa in light grey linen fabric with tapered light oak wood legs against a beige wall." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9uZdT1dq3lZu-JzRgivrdLre1RkxIxAeWN1GGgEkhODpztNqL1b3avsE6-Wwydu_GDZ28fdYPG5cvTzN-F21EGkezjSXBLxa9chxp_ER5PJU9ynK2NrHfUfauA0_iw6qdF_IwxO4m1USQU5_oMOrUfyOA7Nck43WQVCMKtVTroFWLGZXTvIG_sNB_cgsTPhrljQiKfRyVJA5z2IajN0Mc2rXB0-9A7o_0rbU0HU_8YXXOnBVitXj39SXynaN10sKXFVAlOW3YiyQ"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center text-primary shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+<div class="px-1">
+<h4 class="font-headline font-bold text-on-surface leading-tight">Sofa Nordique</h4>
+<p class="font-body text-sm text-on-surface-variant mb-1">Tissu gris perle</p>
+<p class="font-headline font-extrabold text-lg text-primary">499€</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex flex-col group translate-y-6">
+<div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-4 bg-surface-container-low transition-transform duration-300 group-active:scale-95">
+<img alt="Table en chêne" class="w-full h-full object-cover" data-alt="Minimalist solid oak dining table with smooth rounded edges, showcasing natural wood grain, shot in high-key natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC25x69wOfyc_2nISCQH6V6CbtoPesfU9QFIUNhy4OK0Ann-7aHyrMkFYaI19uN3LGUu4pujfQMEzYyqfYMBpQGg6Ke2emCs9yTeCUg7ruEkRQRPFyc5obMy4LI2ABlZyuyX4nfK0yL6fGSErO1JeCiwjqqgWQds9Po1CqYTuKeXnnLjiyIoZGMn2fcbgtiXSRPg4djMcifAvD8mvjQ_TNE_ECaZ6DIk3xeE5gpAmHK_nDkhIBn74RZSRyqu7myaz2Snb6uma0vdxM"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center text-primary shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+<div class="px-1">
+<h4 class="font-headline font-bold text-on-surface leading-tight">Table Oslo</h4>
+<p class="font-body text-sm text-on-surface-variant mb-1">Chêne massif</p>
+<p class="font-headline font-extrabold text-lg text-primary">345€</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="flex flex-col group">
+<div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-4 bg-surface-container-low transition-transform duration-300 group-active:scale-95">
+<img alt="Fauteuil Velours" class="w-full h-full object-cover" data-alt="Deep forest green velvet armchair with gold metal legs, set in an elegant corner with a large leaf plant background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt6aKOmWQdvdZ4rYDoLl-y2FY4LfS1Tdy2vjtLadMbyYo0xX3zO6heSMwBHPaa1dJnXFE_Jbjnj_28VnC8EPKZiZD98ii-b2pqQMpP8utMHTE9cl8PnlxldXfNfeRGUoLdAD9gyOjxtY9aFdFymkUR6nH8PGBY8DiZ0xxIlmAOk5ESJ9tEsg2pMpWcW_gKfwDU-21TUChYA2Omcqt8W_mHEdIhEmpb-AAqH4cW9TafXfFUucvamJNvuW0hw7yLHETT7vMmDWK5vQY"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center text-primary shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+<div class="px-1">
+<h4 class="font-headline font-bold text-on-surface leading-tight">Fauteuil Velvet</h4>
+<p class="font-body text-sm text-on-surface-variant mb-1">Vert sapin</p>
+<p class="font-headline font-extrabold text-lg text-primary">220€</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="flex flex-col group translate-y-6">
+<div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-4 bg-surface-container-low transition-transform duration-300 group-active:scale-95">
+<img alt="Lampe de Bureau" class="w-full h-full object-cover" data-alt="Industrial modern desk lamp with a matte black finish and warm Edison bulb, sitting on a wooden workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqZX57vQBOJ7c3pmxcNw-gnrac0NVfiDepFCVSbxd5z0M3_STJMi2iMQEAKkNlROl13dgNA83-JaBR7B3pXNmWvYwlr1OZVwLeQeymcE_r8Vq7L_1PhuVQDaNZpYEv-lsSZCdhgBLw-vBn447Dfw_eHj4wUBm0s26rTFbzCzxUurANbkdoJK5zwrLscp0Lwky6LMuI_uh8NVkV1GvwFRfonU3QohqfUT0nBhUB-l-LqgfedN_jc5CmMdhjL7Pjuhrz5pUKQBwucLE"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center text-primary shadow-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+<div class="px-1">
+<h4 class="font-headline font-bold text-on-surface leading-tight">Lampe Lumi</h4>
+<p class="font-body text-sm text-on-surface-variant mb-1">Noir mat</p>
+<p class="font-headline font-extrabold text-lg text-primary">89€</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-6 pt-3 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-xl rounded-t-[24px] shadow-[0_-4px_32px_rgba(45,52,53,0.04)]">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-stone-200 dark:bg-stone-800 text-stone-900 dark:text-stone-50 rounded-2xl px-4 py-1.5 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Home</span>
+</a>
+<!-- Cart -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-4 py-1.5 hover:text-stone-900 dark:hover:text-stone-50 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Cart</span>
+</a>
+<!-- Orders -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-4 py-1.5 hover:text-stone-900 dark:hover:text-stone-50 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="package_2">package_2</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Orders</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-4 py-1.5 hover:text-stone-900 dark:hover:text-stone-50 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Profile</span>
+</a>
+</nav>
+</body></html>

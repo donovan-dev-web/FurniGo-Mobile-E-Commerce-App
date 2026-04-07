@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-dim": "#405849",
+                    "on-secondary-container": "#644e2e",
+                    "on-surface-variant": "#5a6061",
+                    "on-tertiary-fixed-variant": "#676666",
+                    "on-surface": "#2d3435",
+                    "tertiary-fixed": "#f6f3f2",
+                    "secondary-dim": "#664f2f",
+                    "primary": "#4c6455",
+                    "surface-tint": "#4c6455",
+                    "on-tertiary-fixed": "#4a4949",
+                    "surface-container-high": "#e4e9ea",
+                    "tertiary-fixed-dim": "#e7e5e4",
+                    "secondary-container": "#feddb3",
+                    "on-primary-fixed-variant": "#496152",
+                    "background": "#f9f9f9",
+                    "secondary-fixed-dim": "#efd0a6",
+                    "primary-fixed": "#cee9d6",
+                    "on-primary": "#e3feeb",
+                    "on-background": "#2d3435",
+                    "surface-container-low": "#f2f4f4",
+                    "on-secondary-fixed": "#503c1d",
+                    "surface-container-highest": "#dde4e5",
+                    "secondary-fixed": "#feddb3",
+                    "tertiary": "#5f5f5f",
+                    "outline": "#757c7d",
+                    "inverse-on-surface": "#9c9d9d",
+                    "inverse-surface": "#0c0f0f",
+                    "primary-container": "#cee9d6",
+                    "tertiary-dim": "#535353",
+                    "on-error-container": "#752121",
+                    "on-primary-container": "#3f5749",
+                    "error-container": "#fe8983",
+                    "inverse-primary": "#d9f5e2",
+                    "on-tertiary": "#fbf8f8",
+                    "surface-dim": "#d4dbdd",
+                    "on-error": "#fff7f6",
+                    "error-dim": "#4e0309",
+                    "surface": "#f9f9f9",
+                    "surface-variant": "#dde4e5",
+                    "on-secondary": "#fff8f2",
+                    "surface-bright": "#f9f9f9",
+                    "on-primary-fixed": "#2d4437",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#adb3b4",
+                    "error": "#9f403d",
+                    "primary-fixed-dim": "#c0dbc9",
+                    "secondary": "#735b3a",
+                    "tertiary-container": "#f6f3f2",
+                    "on-tertiary-container": "#5c5b5b",
+                    "on-secondary-fixed-variant": "#6f5836",
+                    "surface-container": "#ebeeef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col items-center justify-center">
+<!-- Onboarding Container (Vertical Stack for Desktop Visualization, Swipeable feel for Mobile) -->
+<main class="w-full max-w-6xl mx-auto px-6 py-12 space-y-24">
+<!-- Screen 1: Welcome & Collection -->
+<section class="grid md:grid-cols-2 gap-12 items-center min-h-[618px]">
+<div class="relative group order-2 md:order-1">
+<div class="absolute -inset-4 bg-primary-fixed-dim/20 rounded-[32px] transform -rotate-2 group-hover:rotate-0 transition-transform duration-500"></div>
+<div class="relative aspect-[4/5] rounded-[24px] overflow-hidden shadow-sm">
+<img alt="Minimalist living room" class="w-full h-full object-cover" data-alt="Luxurious minimalist living room with a curved sage green velvet sofa, natural wood coffee table, and soft morning sunlight filtering through linen curtains" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADsqn8-rK790CYAyOo6nj-_A-jYeTxUPAzd5lOkN4dz9eQXClJzO0rolTx6keJFBxsROjfmirY2cJXKaPPnAbNWW9U4r2cY1QAxgcu_6zpPjCAqam0UnqvsU6XRor1Z4ATQUNWikXuGFnl9rwXLD9rVw8eyABOOkvrEs9rUmCuN9RN2XDbh9fJ_R7gSkNAFtVeoljPZzMgFVzUtLF5Fhn2Ocs5foBHHKOgKTm1w0KwZTw9yRE6VfMFuFTmmmyt1fEDIm-EQfKjks0"/>
+</div>
+</div>
+<div class="space-y-8 order-1 md:order-2">
+<header class="flex justify-between items-center md:hidden mb-8">
+<span class="text-2xl font-black text-on-surface italic">FurniGo</span>
+<button class="text-on-surface-variant font-label text-sm tracking-widest uppercase">Passer</button>
+</header>
+<div class="space-y-4">
+<h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-on-surface leading-[1.1]">
+                        Découvrez notre collection
+                    </h1>
+<p class="text-xl text-on-surface-variant max-w-md leading-relaxed">
+                        Une sélection exclusive de meubles pour votre maison.
+                    </p>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-1.5 w-8 rounded-full bg-primary"></div>
+<div class="h-1.5 w-2 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 w-2 rounded-full bg-surface-container-highest"></div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<button class="bg-primary hover:bg-primary-dim text-on-primary px-8 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/10">
+                        Suivant
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="hidden md:block text-on-surface-variant hover:text-on-surface px-8 py-4 font-semibold transition-all">
+                        Passer l'étape
+                    </button>
+</div>
+</div>
+</section>
+<!-- Screen 2: Interaction & Cart -->
+<section class="grid md:grid-cols-2 gap-12 items-center min-h-[618px]">
+<div class="space-y-8">
+<div class="space-y-4">
+<h2 class="text-5xl md:text-7xl font-extrabold tracking-tight text-on-surface leading-[1.1]">
+                        Ajout au panier simplifié
+                    </h2>
+<p class="text-xl text-on-surface-variant max-w-md leading-relaxed">
+                        Ajoutez vos articles préférés en un clic.
+                    </p>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-1.5 w-2 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 w-8 rounded-full bg-primary"></div>
+<div class="h-1.5 w-2 rounded-full bg-surface-container-highest"></div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<button class="bg-primary hover:bg-primary-dim text-on-primary px-8 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/10">
+                        Continuer
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -top-12 -right-12 w-64 h-64 bg-secondary-container/30 rounded-full blur-3xl"></div>
+<div class="relative aspect-square bg-surface-container-low rounded-[48px] flex items-center justify-center overflow-hidden">
+<img alt="Shopping experience" class="w-4/5 h-4/5 object-cover rounded-3xl shadow-xl transform rotate-3" data-alt="A stylish ceramic vase and a textured throw blanket being carefully placed into a premium canvas shopping tote on a clean marble surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd2zoZcW3dbzgVYZJM3jw7tsvp-lpLtbbcLl2SzvxD_44bJ2UOKZAqCcK-xm30hHPNH7-LTCrI5UiXDL7BmGBOd1XLSB1wUgv35FfgLMbiLPLW2o6yvWC3eZO-RD-9Lm2CZvURczZuXaodjzNLFnmdvVfJAyitqZYgNZ9mNYpl9yGIC--q4ELcMcQr01ol9_UqEpg5COy9v7-QIalebw4kgabNHDRVo48eOWsbJlc6VHk6feEqtLGFIInNkbHGOvEKHssh9YtfTDU"/>
+<div class="absolute bottom-12 right-12 bg-surface-bright p-4 rounded-2xl shadow-2xl flex items-center gap-4 animate-pulse">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+</div>
+<div class="pr-4">
+<div class="text-xs font-bold text-on-surface">Ajouté au panier</div>
+<div class="text-[10px] text-on-surface-variant">Vase en grès</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Screen 3: Trust & Payment -->
+<section class="grid md:grid-cols-2 gap-12 items-center min-h-[618px] pb-24">
+<div class="relative order-2 md:order-1">
+<div class="aspect-[4/3] bg-surface-container-highest rounded-[32px] overflow-hidden relative">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="text-center space-y-6 z-10">
+<div class="w-24 h-24 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined !text-5xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div class="bg-surface-lowest/80 backdrop-blur-md px-6 py-3 rounded-full border border-outline-variant/10 shadow-sm inline-block">
+<span class="text-sm font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined !text-sm text-primary">lock</span>
+                                    Transactions cryptées par Stripe
+                                </span>
+</div>
+</div>
+<img alt="Secure connection" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" data-alt="Close-up detail of a high-end metal credit card resting on a dark wooden table with soft atmospheric lighting and tech-inspired overlays" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnT6mgQLCtlEXS3ST37Jsa7Xqc6Ws8b420fEWuq6MEK5-iBE7W27M_w1TZa0AkkZrdOzgk6FAO_71irCXWiZThyK9lKoTBontF2FK7iVLBiHN62t8QTYvLt2A6-5Z3bz5T0Q9tLKkLmfj_U42O7ywZ6Cj_vc7zUkzVjO3309079QQXuIfK7pD_ANrUD9nKkAUd2ZflLtKGWG_6QWbbnmcfKBq3JvhX_KTl6KkUBCwawN66sYhe5d5imAbTHjAD63T7yGRtWdj8AuA"/>
+</div>
+</div>
+</div>
+<div class="space-y-8 order-1 md:order-2">
+<div class="space-y-4">
+<h2 class="text-5xl md:text-7xl font-extrabold tracking-tight text-on-surface leading-[1.1]">
+                        Paiement en ligne sécurisé
+                    </h2>
+<p class="text-xl text-on-surface-variant max-w-md leading-relaxed">
+                        Payez en toute confiance avec Stripe.
+                    </p>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-1.5 w-2 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 w-2 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 w-8 rounded-full bg-primary"></div>
+</div>
+<div class="flex flex-col gap-4 pt-4">
+<button class="bg-on-surface hover:bg-inverse-surface text-surface px-8 py-5 rounded-xl font-bold transition-all flex items-center justify-center gap-3 text-lg shadow-2xl">
+                        Commencer mon shopping
+                        <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+<p class="text-center md:text-left text-xs text-on-surface-variant font-medium uppercase tracking-widest">
+                        Aucun frais caché • Annulation gratuite
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Global Floating Skip for Desktop -->
+<div class="fixed top-8 right-8 hidden md:block">
+<a class="bg-surface-container-lowest/50 backdrop-blur-md px-6 py-3 rounded-full text-sm font-bold text-on-surface-variant hover:text-on-surface transition-colors border border-outline-variant/10" href="#">
+            Passer l'introduction
+        </a>
+</div>
+<!-- Background Decorative Elements -->
+<div class="fixed top-0 left-0 -z-10 w-full h-full overflow-hidden pointer-events-none">
+<div class="absolute top-[10%] -left-[10%] w-[40vw] h-[40vw] bg-primary-fixed-dim/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[10%] -right-[10%] w-[30vw] h-[30vw] bg-secondary-container/20 rounded-full blur-[100px]"></div>
+</div>
+</body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FurniGo - Paramètres</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-dim": "#405849",
+                        "on-secondary-container": "#644e2e",
+                        "on-surface-variant": "#a6adad",
+                        "on-tertiary-fixed-variant": "#676666",
+                        "on-surface": "#f9f9f9",
+                        "tertiary-fixed": "#f6f3f2",
+                        "secondary-dim": "#664f2f",
+                        "primary": "#6ea382",
+                        "surface-tint": "#4c6455",
+                        "on-tertiary-fixed": "#4a4949",
+                        "surface-container-high": "#2c3132",
+                        "tertiary-fixed-dim": "#e7e5e4",
+                        "secondary-container": "#feddb3",
+                        "on-primary-fixed-variant": "#496152",
+                        "background": "#121414",
+                        "secondary-fixed-dim": "#efd0a6",
+                        "primary-fixed": "#cee9d6",
+                        "on-primary": "#e3feeb",
+                        "on-background": "#f9f9f9",
+                        "surface-container-low": "#1e2223",
+                        "on-secondary-fixed": "#503c1d",
+                        "surface-container-highest": "#373d3e",
+                        "secondary-fixed": "#feddb3",
+                        "tertiary": "#5f5f5f",
+                        "outline": "#8e9293",
+                        "inverse-on-surface": "#2d3435",
+                        "inverse-surface": "#f9f9f9",
+                        "primary-container": "#cee9d6",
+                        "tertiary-dim": "#535353",
+                        "on-error-container": "#752121",
+                        "on-primary-container": "#3f5749",
+                        "error-container": "#fe8983",
+                        "inverse-primary": "#4c6455",
+                        "on-tertiary": "#fbf8f8",
+                        "surface-dim": "#d4dbdd",
+                        "on-error": "#fff7f6",
+                        "error-dim": "#4e0309",
+                        "surface": "#121414",
+                        "surface-variant": "#dde4e5",
+                        "on-secondary": "#fff8f2",
+                        "surface-bright": "#f9f9f9",
+                        "on-primary-fixed": "#2d4437",
+                        "surface-container-lowest": "#1a1d1e",
+                        "outline-variant": "#444a4b",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#c0dbc9",
+                        "secondary": "#735b3a",
+                        "tertiary-container": "#f6f3f2",
+                        "on-tertiary-container": "#5c5b5b",
+                        "on-secondary-fixed-variant": "#6f5836",
+                        "surface-container": "#232728"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            background-color: #121414;
+            color: #f9f9f9;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container dark:bg-neutral-950 dark:text-neutral-50">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-white/5 dark:bg-stone-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/10 transition-colors active:scale-95">
+<span class="material-symbols-outlined text-white" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline text-lg font-bold tracking-tight text-white">Paramètres</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-headline text-2xl font-black text-white italic">FurniGo</span>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 px-6 max-w-2xl mx-auto space-y-8">
+<!-- Preferences Section -->
+<section class="space-y-4">
+<h2 class="font-headline text-xs font-extrabold uppercase tracking-[0.2em] text-neutral-500 px-2">Préférences Générales</h2>
+<div class="bg-neutral-900/50 rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
+<!-- Dropdown: Langue -->
+<div class="group flex items-center justify-between px-5 py-4 hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="language">language</span>
+</div>
+<div>
+<p class="font-body text-sm font-semibold text-neutral-100">Langue</p>
+<p class="font-body text-xs text-neutral-400">Français (FR)</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-neutral-600 group-hover:text-neutral-400 transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="h-[1px] bg-white/5 mx-5"></div>
+<!-- Dropdown: Devise -->
+<div class="group flex items-center justify-between px-5 py-4 hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-orange-400" data-icon="payments">payments</span>
+</div>
+<div>
+<p class="font-body text-sm font-semibold text-neutral-100">Devise</p>
+<p class="font-body text-xs text-neutral-400">Euro (€)</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-neutral-600 group-hover:text-neutral-400 transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Toggle Controls Section -->
+<section class="space-y-4">
+<h2 class="font-headline text-xs font-extrabold uppercase tracking-[0.2em] text-neutral-500 px-2">Notifications &amp; Affichage</h2>
+<div class="bg-neutral-900/50 rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
+<!-- Toggle: Notifications -->
+<div class="flex items-center justify-between px-5 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-400" data-icon="notifications">notifications</span>
+</div>
+<p class="font-body text-sm font-semibold text-neutral-100">Notifications</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-neutral-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="h-[1px] bg-white/5 mx-5"></div>
+<!-- Toggle: Mode Sombre -->
+<div class="flex items-center justify-between px-5 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-purple-400" data-icon="dark_mode">dark_mode</span>
+</div>
+<p class="font-body text-sm font-semibold text-neutral-100">Mode Sombre</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-neutral-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="h-[1px] bg-white/5 mx-5"></div>
+<!-- Toggle: Newsletters -->
+<div class="flex items-center justify-between px-5 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-emerald-400" data-icon="mail">mail</span>
+</div>
+<p class="font-body text-sm font-semibold text-neutral-100">Newsletters</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-neutral-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Information & Legal Section -->
+<section class="space-y-4">
+<h2 class="font-headline text-xs font-extrabold uppercase tracking-[0.2em] text-neutral-500 px-2">Informations</h2>
+<div class="bg-neutral-900/50 rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
+<!-- Info: Version -->
+<div class="flex items-center justify-between px-5 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-neutral-400" data-icon="info">info</span>
+</div>
+<p class="font-body text-sm font-semibold text-neutral-100">Version de l'app</p>
+</div>
+<p class="font-body text-xs font-medium text-neutral-500">v2.4.0 (Build 89)</p>
+</div>
+<div class="h-[1px] bg-white/5 mx-5"></div>
+<!-- Legal: Conditions -->
+<div class="group flex items-center justify-between px-5 py-4 hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-neutral-400" data-icon="description">description</span>
+</div>
+<p class="font-body text-sm font-semibold text-neutral-100">Conditions d'utilisation</p>
+</div>
+<span class="material-symbols-outlined text-neutral-600" data-icon="open_in_new">open_in_new</span>
+</div>
+<div class="h-[1px] bg-white/5 mx-5"></div>
+<!-- Legal: Privacy -->
+<div class="group flex items-center justify-between px-5 py-4 hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-neutral-400" data-icon="policy">policy</span>
+</div>
+<p class="font-body text-sm font-semibold text-neutral-100">Politique de confidentialité</p>
+</div>
+<span class="material-symbols-outlined text-neutral-600" data-icon="open_in_new">open_in_new</span>
+</div>
+</div>
+</section>
+<!-- Danger Zone -->
+<section class="pt-4">
+<button class="w-full py-4 rounded-2xl bg-red-500/10 text-red-400 font-body font-bold text-sm hover:bg-red-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2 border border-red-500/20">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+            Déconnexion
+        </button>
+</section>
+</main>
+<!-- Navigation Support / Spacing -->
+<div class="h-24"></div>
+<!-- Bottom Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-6 pt-3 bg-stone-950/80 backdrop-blur-xl rounded-t-[24px] border-t border-white/5">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-neutral-500 px-4 py-1.5 hover:text-neutral-100 transition-all" href="#">
+<span class="material-symbols-outlined text-xl mb-1" data-icon="home">home</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Home</span>
+</a>
+<!-- Cart -->
+<a class="flex flex-col items-center justify-center text-neutral-500 px-4 py-1.5 hover:text-neutral-100 transition-all" href="#">
+<span class="material-symbols-outlined text-xl mb-1" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Cart</span>
+</a>
+<!-- Orders -->
+<a class="flex flex-col items-center justify-center text-neutral-500 px-4 py-1.5 hover:text-neutral-100 transition-all" href="#">
+<span class="material-symbols-outlined text-xl mb-1" data-icon="package_2">package_2</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Orders</span>
+</a>
+<!-- Profile (Active) -->
+<a class="flex flex-col items-center justify-center bg-white/10 text-white rounded-2xl px-4 py-1.5 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined text-xl mb-1" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Profile</span>
+</a>
+</nav>
+</body></html>

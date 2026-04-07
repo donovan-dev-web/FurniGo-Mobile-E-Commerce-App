@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FurniGo Design System | Styleguide</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#1e3529",
+                        "on-background": "#e2e3df",
+                        "tertiary-fixed-dim": "#bec9c2",
+                        "on-primary-fixed": "#082014",
+                        "surface-container-lowest": "#0d0f0d",
+                        "surface-bright": "#383a37",
+                        "tertiary-fixed": "#dae5de",
+                        "inverse-primary": "#4c6455",
+                        "on-secondary-container": "#acbcb1",
+                        "surface-dim": "#121412",
+                        "on-tertiary-container": "#313b36",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e2e3df",
+                        "outline-variant": "#424844",
+                        "surface-container-high": "#282a28",
+                        "surface-tint": "#b2cdbb",
+                        "on-tertiary-fixed": "#141e19",
+                        "surface": "#121412",
+                        "primary-fixed-dim": "#b2cdbb",
+                        "surface-variant": "#333533",
+                        "inverse-on-surface": "#2f312f",
+                        "on-primary-fixed-variant": "#344c3e",
+                        "error-container": "#93000a",
+                        "on-primary-container": "#273e31",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#26332b",
+                        "tertiary-container": "#9aa59f",
+                        "on-surface-variant": "#c2c8c2",
+                        "primary": "#b2cdbb",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "secondary-fixed": "#d6e7da",
+                        "surface-container-low": "#1a1c1a",
+                        "outline": "#8c928d",
+                        "on-error": "#690005",
+                        "secondary": "#bacabe",
+                        "primary-fixed": "#cee9d6",
+                        "secondary-fixed-dim": "#bacabe",
+                        "tertiary": "#bec9c2",
+                        "background": "#121412",
+                        "primary-container": "#8fa998",
+                        "on-surface": "#e2e3df",
+                        "secondary-container": "#3e4c43",
+                        "surface-container": "#1e201e",
+                        "on-secondary-fixed-variant": "#3c4a41",
+                        "surface-container-highest": "#333533",
+                        "on-tertiary": "#29332e",
+                        "on-secondary-fixed": "#111e17"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sage-gradient {
+            background: linear-gradient(135deg, #b2cdbb 0%, #8fa998 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#1A1C1A] text-[#B2CDBB] font-['Manrope'] tracking-tight font-semibold">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#B2CDBB]">grid_view</span>
+<span class="text-xl font-bold text-[#E2E3DF] tracking-tighter uppercase">FurniGo Design System</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#C2C8C2] hover:bg-[#282A28] transition-colors p-2 rounded-full cursor-pointer">settings</span>
+</div>
+</header>
+<!-- NavigationDrawer Shell (Web Only) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 p-4 pt-20 bg-[#121412] hidden md:block">
+<div class="mb-8 px-4">
+<p class="text-[#E2E3DF] font-black font-['Manrope'] font-medium uppercase tracking-[0.05em] text-xs">SYSTEM CORE</p>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-[#B2CDBB] border-l-4 border-[#8FA998] bg-[#1A1C1A] font-['Manrope'] font-medium uppercase tracking-[0.05em] text-xs transition-all duration-300" href="#">
+<span class="material-symbols-outlined">architecture</span> Foundations
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#C2C8C2] hover:text-[#E2E3DF] hover:bg-[#1A1C1A] font-['Manrope'] font-medium uppercase tracking-[0.05em] text-xs transition-all duration-300" href="#">
+<span class="material-symbols-outlined">text_fields</span> Typography
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#C2C8C2] hover:text-[#E2E3DF] hover:bg-[#1A1C1A] font-['Manrope'] font-medium uppercase tracking-[0.05em] text-xs transition-all duration-300" href="#">
+<span class="material-symbols-outlined">smart_button</span> Buttons
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#C2C8C2] hover:text-[#E2E3DF] hover:bg-[#1A1C1A] font-['Manrope'] font-medium uppercase tracking-[0.05em] text-xs transition-all duration-300" href="#">
+<span class="material-symbols-outlined">input</span> Inputs
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#B2CDBB] border-l-4 border-[#8FA998] bg-[#1A1C1A] font-['Manrope'] font-medium uppercase tracking-[0.05em] text-xs transition-all duration-300" href="#">
+<span class="material-symbols-outlined">category</span> Components
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#C2C8C2] hover:text-[#E2E3DF] hover:bg-[#1A1C1A] font-['Manrope'] font-medium uppercase tracking-[0.05em] text-xs transition-all duration-300" href="#">
+<span class="material-symbols-outlined">schema</span> Patterns
+            </a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 pb-32 px-6 lg:px-12 max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="mb-20">
+<h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter text-on-surface mb-4 leading-none">
+                Midnight <span class="text-primary italic">Hearth</span>
+</h1>
+<p class="text-on-surface-variant max-w-2xl text-lg font-light leading-relaxed">
+                A design system rooted in Scandinavian minimalism and volcanic stone textures. Defined by tonal depth, intentional asymmetry, and the soft pulse of sage lichen.
+            </p>
+</header>
+<!-- 1. Typography Section -->
+<section class="mb-24">
+<div class="mb-8 flex items-baseline justify-between border-b border-outline-variant/10 pb-2">
+<h2 class="text-xs uppercase tracking-[0.2em] text-primary font-bold">01. Typography</h2>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-50">Manrope Family</span>
+</div>
+<div class="space-y-12">
+<div>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant block mb-4">Display Large</span>
+<h1 class="text-7xl font-extrabold tracking-[-0.02em] text-on-surface">Minimalist Form.</h1>
+</div>
+<div>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant block mb-4">Headline Medium</span>
+<h2 class="text-4xl font-bold tracking-tight text-on-surface">Curated living spaces for the modern nomad.</h2>
+</div>
+<div>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant block mb-4">Body Large</span>
+<p class="text-lg text-on-surface-variant leading-relaxed max-w-3xl">
+                        Our philosophy is simple: create objects that last a lifetime. We use sustainably sourced materials and traditional craftsmanship techniques to ensure every piece in our collection meets the highest standards of quality and aesthetics.
+                    </p>
+</div>
+<div>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant block mb-4">Labels &amp; Overlines</span>
+<p class="text-xs uppercase tracking-[0.1em] font-bold text-primary">Discover the collection</p>
+</div>
+</div>
+</section>
+<!-- 2. Color Palette Section -->
+<section class="mb-24">
+<div class="mb-8 flex items-baseline justify-between border-b border-outline-variant/10 pb-2">
+<h2 class="text-xs uppercase tracking-[0.2em] text-primary font-bold">02. Color Palette</h2>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-50">Tonal Depths</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+<div class="group">
+<div class="aspect-square bg-surface rounded-xl border border-outline-variant/10 mb-2"></div>
+<p class="text-[10px] font-bold text-on-surface">Surface</p>
+<p class="text-[10px] text-on-surface-variant">#121412</p>
+</div>
+<div class="group">
+<div class="aspect-square bg-surface-container-low rounded-xl mb-2"></div>
+<p class="text-[10px] font-bold text-on-surface">Container Low</p>
+<p class="text-[10px] text-on-surface-variant">#1A1C1A</p>
+</div>
+<div class="group">
+<div class="aspect-square bg-surface-container-high rounded-xl mb-2"></div>
+<p class="text-[10px] font-bold text-on-surface">Container High</p>
+<p class="text-[10px] text-on-surface-variant">#282A28</p>
+</div>
+<div class="group">
+<div class="aspect-square bg-surface-container-highest rounded-xl mb-2"></div>
+<p class="text-[10px] font-bold text-on-surface">Container Highest</p>
+<p class="text-[10px] text-on-surface-variant">#333533</p>
+</div>
+<div class="group">
+<div class="aspect-square sage-gradient rounded-xl mb-2"></div>
+<p class="text-[10px] font-bold text-on-surface">Primary Sage</p>
+<p class="text-[10px] text-on-surface-variant">#B2CDBB / #8FA998</p>
+</div>
+<div class="group">
+<div class="aspect-square bg-on-surface rounded-xl mb-2"></div>
+<p class="text-[10px] font-bold text-on-surface">On Surface</p>
+<p class="text-[10px] text-on-surface-variant">#E2E3DF</p>
+</div>
+</div>
+</section>
+<!-- 3. Buttons Section -->
+<section class="mb-24">
+<div class="mb-8 flex items-baseline justify-between border-b border-outline-variant/10 pb-2">
+<h2 class="text-xs uppercase tracking-[0.2em] text-primary font-bold">03. Buttons</h2>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-50">Tactile Actions</span>
+</div>
+<div class="flex flex-wrap items-center gap-6">
+<button class="sage-gradient text-on-primary px-8 py-3 rounded-lg font-bold text-sm tracking-wide hover:shadow-[0_0_20px_rgba(178,205,187,0.2)] transition-all">
+                    Primary Action
+                </button>
+<button class="bg-surface-container-highest text-on-surface px-8 py-3 rounded-lg font-bold text-sm tracking-wide hover:bg-surface-bright transition-all">
+                    Secondary
+                </button>
+<button class="border border-outline-variant text-on-surface px-8 py-3 rounded-lg font-bold text-sm tracking-wide hover:bg-on-surface/5 transition-all">
+                    Outline
+                </button>
+<button class="bg-surface-container-low text-on-surface/20 px-8 py-3 rounded-lg font-bold text-sm tracking-wide cursor-not-allowed" disabled="">
+                    Disabled
+                </button>
+<button class="bg-primary text-on-primary p-3 rounded-full flex items-center justify-center transition-transform active:scale-95">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</section>
+<!-- 4. Form Elements & Product Components (Bento Style) -->
+<section class="mb-24">
+<div class="mb-8 flex items-baseline justify-between border-b border-outline-variant/10 pb-2">
+<h2 class="text-xs uppercase tracking-[0.2em] text-primary font-bold">04. Forms &amp; Components</h2>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-50">Utility &amp; Display</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Form Inputs -->
+<div class="lg:col-span-5 space-y-8">
+<div class="space-y-2">
+<label class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">Search Products</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-1 focus:ring-primary/50 transition-all" placeholder="Ash wood side table..." type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">Email Address</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-4 px-4 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-1 focus:ring-primary/50 transition-all" placeholder="hello@furnigo.com" type="email"/>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-1 space-y-2">
+<label class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">Quantity</label>
+<div class="flex items-center bg-surface-container-high rounded-lg p-1 w-fit">
+<button class="p-2 text-on-surface hover:text-primary"><span class="material-symbols-outlined text-sm">remove</span></button>
+<span class="px-4 font-bold text-sm">01</span>
+<button class="p-2 text-on-surface hover:text-primary"><span class="material-symbols-outlined text-sm">add</span></button>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<label class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">Status Labels</label>
+<div class="flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">En transit</span>
+<span class="bg-primary-container/20 text-primary px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">Livré</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sample Product Card -->
+<div class="lg:col-span-7">
+<div class="bg-surface-container-low rounded-2xl overflow-hidden group">
+<div class="grid grid-cols-1 md:grid-cols-2">
+<div class="h-64 md:h-auto relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Minimalist wooden lounge chair with grey fabric cushions against a dark charcoal concrete wall with soft moody lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM-5BvBJKrCLG98qGGJa0035K3DfbxTgx2lsBuLUlNf7XtxFJMuti__DIP0lcKIcMc5bSiP0RTupKtkDHWH8RYHrIgxOm8B1eFIwO9yIkdbuQBmDrx1_CL2aaDKSYzZn3xMJ18Stp7RAupfneVFeR5XG5CXKO4vKfMKIbo7n9ROozyIhwzllUknkFj_nfaRIt4g0wCcUkZUbg1LMl-9-pNGn2yHqJxXgegZ0SummOaneqZg3tA5L91yaxKciohIVvQcVww6YwVdh8"/>
+<div class="absolute top-4 left-4">
+<span class="bg-surface/80 backdrop-blur-md text-on-surface px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">Limited Edition</span>
+</div>
+</div>
+<div class="p-8 flex flex-col justify-between">
+<div>
+<h3 class="text-2xl font-bold text-on-surface mb-2">Nordic Lounge Chair</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">
+                                        Handcrafted from sustainably sourced ash wood with a matte charcoal finish.
+                                    </p>
+<div class="flex items-center gap-1 mb-8">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">star</span>
+<span class="text-xs text-on-surface-variant ml-2">(42 reviews)</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-2xl font-black text-on-surface">$850.00</span>
+<button class="bg-primary text-on-primary w-12 h-12 rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Shell (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-[#1A1C1A]/80 backdrop-blur-xl md:hidden">
+<div class="flex flex-col items-center justify-center bg-[#282A28] text-[#B2CDBB] rounded-xl px-4 py-1 font-['Manrope'] text-[10px] uppercase tracking-widest transition-transform scale-90 active:scale-100">
+<span class="material-symbols-outlined">visibility</span>
+<span>Overview</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#C2C8C2] opacity-60 font-['Manrope'] text-[10px] uppercase tracking-widest hover:opacity-100 transition-transform scale-90 active:scale-100">
+<span class="material-symbols-outlined">category</span>
+<span>Assets</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#C2C8C2] opacity-60 font-['Manrope'] text-[10px] uppercase tracking-widest hover:opacity-100 transition-transform scale-90 active:scale-100">
+<span class="material-symbols-outlined">toll</span>
+<span>Tokens</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#C2C8C2] opacity-60 font-['Manrope'] text-[10px] uppercase tracking-widest hover:opacity-100 transition-transform scale-90 active:scale-100">
+<span class="material-symbols-outlined">description</span>
+<span>Docs</span>
+</div>
+</nav>
+</body></html>

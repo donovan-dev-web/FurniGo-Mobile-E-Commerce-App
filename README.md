@@ -1,204 +1,260 @@
+<div align="center">
 
-#  FurniGo — Mobile E-Commerce App
+# FurniGo
 
+**Application mobile e-commerce fullstack — React Native × Spring Boot**
 
-![Status](https://img.shields.io/badge/status-en%20d%C3%A9veloppement-blue)
-![Backend](https://img.shields.io/badge/backend-Spring%20Boot-green)
-![Mobile](https://img.shields.io/badge/mobile-React%20Native-orange)
-![Database](https://img.shields.io/badge/database-PostgreSQL-blue)
-![Payments](https://img.shields.io/badge/payments-Stripe-purple)
-![Auth](https://img.shields.io/badge/auth-OAuth2-red)
+[![Backend CI](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/actions/workflows/backend-ci.yml)
+[![Mobile CI](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/actions/workflows/mobile-ci.yml/badge.svg)](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/actions/workflows/mobile-ci.yml)
+![Status](https://img.shields.io/badge/status-en%20développement-blue)
+![Backend](https://img.shields.io/badge/backend-Spring%20Boot%203-6DB33F?logo=springboot&logoColor=white)
+![Mobile](https://img.shields.io/badge/mobile-React%20Native%20%2F%20Expo-0B162A?logo=expo)
+![Database](https://img.shields.io/badge/database-PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![Payments](https://img.shields.io/badge/payments-Stripe-635BFF?logo=stripe&logoColor=white)
+![Auth](https://img.shields.io/badge/auth-Google%20OAuth2-4285F4?logo=google&logoColor=white)
+![Docker](https://img.shields.io/badge/infra-Docker-2496ED?logo=docker&logoColor=white)
 
----
+<br/>
 
-## Contexte du projet
+FurniGo est une application mobile e-commerce dédiée à la vente de mobilier moderne.  
+Projet fullstack conçu comme démonstration technique avancée :  
+architecture API robuste, paiement Stripe, authentification OAuth2 et conformité RGPD.
 
-FurniGo est une application mobile e-commerce simulant une plateforme moderne de vente de mobilier.
+[📋 Kanban](https://github.com/users/donovan-dev-web/projects/4) · [🐛 Issues](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues) · [📚 Documentation](#documentation) · [🎨 Maquettes](docs/maquettes.md)
 
-Ce projet a été conçu dans une logique de **portfolio technique avancé**, avec un accent fort sur :
-- la conception backend avec Spring Boot
-- la gestion sécurisée des utilisateurs (OAuth2 + JWT)
-- l’intégration d’un système de paiement Stripe en mode sandbox
-- la conformité aux bonnes pratiques RGPD
-
----
-
-# Objectifs
-
-## Objectif principal
-Démontrer la capacité à concevoir et développer une application fullstack mobile complète, incluant :
-- une API backend robuste et sécurisée
-- une application mobile fonctionnelle
-- une intégration de paiement réaliste
-- une gestion des données conforme RGPD
+</div>
 
 ---
 
-## Objectifs techniques
-- Architecture backend modulaire (Spring Boot)
-- Authentification via Google OAuth2
-- Gestion des utilisateurs et des commandes
-- Intégration Stripe Checkout (sandbox)
-- Modélisation PostgreSQL relationnelle
-- Gestion des données RGPD (export, suppression, anonymisation)
+## Pourquoi ce projet
+
+Ce projet a été conçu avec un objectif clair : **démontrer la capacité à concevoir et livrer une application fullstack mobile complète**, en adoptant dès le départ les pratiques d'un environnement professionnel.
+
+Chaque choix technique est documenté et justifié. Le projet est géré comme un vrai produit : backlog priorisé, issues liées aux Pull Requests, CI automatisée, convention de commits.
 
 ---
 
-# Présentation
+## Stack technique
 
-> FurniGo est une application mobile e-commerce dédiée à la vente de mobilier moderne, permettant aux utilisateurs de parcourir un catalogue de produits, gérer un panier et effectuer des paiements sécurisés via Stripe dans un environnement simulé.
-
-> FurniGo est un projet fullstack démonstratif conçu pour mettre en avant mes compétences en développement backend Spring Boot, en architecture API sécurisée, en gestion des données sensibles (RGPD) et en intégration de paiements Stripe dans une application mobile React Native.
-
----
-
-# Stack technique
-
-## Frontend mobile
-- React Native (Expo)
-- Zustand (state management)
-- AsyncStorage (persistance locale)
-- React Navigation
-
-## Backend
-- Spring Boot (monolithe modulaire)
-- Spring Security + OAuth2 (Google)
-- JWT Authentication
-- REST API
-
-## Base de données
-- PostgreSQL
-- JPA / Hibernate
-
-## Paiement
-- Stripe Checkout (mode sandbox)
-- Webhooks pour confirmation de paiement
-
-## Infrastructure
-- Docker (backend + database)
-- Docker Compose
+| Couche | Technologie | Rôle |
+|---|---|---|
+| **Mobile** | React Native (Expo) | Application iOS / Android |
+| **State** | Zustand + AsyncStorage | Gestion d'état et persistance locale |
+| **Navigation** | React Navigation | Navigation entre écrans |
+| **Auth mobile** | expo-auth-session | Authentification Google OAuth2 |
+| **Backend** | Spring Boot 3 (Java 21) | API REST, logique métier |
+| **Sécurité** | Spring Security + JWT | Authentification stateless |
+| **Base de données** | PostgreSQL + JPA/Hibernate | Persistance relationnelle |
+| **Paiement** | Stripe Checkout + Webhooks | Paiement sandbox |
+| **Infra** | Docker + Docker Compose | Environnement local reproductible |
+| **CI** | GitHub Actions | Build, tests et lint automatisés |
 
 ---
 
-# Architecture globale
+## Architecture
 
-```text
-Mobile App (React Native)
-        ↓
-Spring Boot API (Modulaire)
-        ↓
-PostgreSQL Database
-        ↓
-Stripe API (Payment Sandbox)
-````
+```
+Mobile App (React Native / Expo)
+        │
+        │  HTTPS — REST + JWT
+        ▼
+Spring Boot API (monolithe modulaire)
+   ┌────────────────────────────────────┐
+   │  Auth │ User │ Product │ Order    │
+   │  Payment │ RGPD │ Common          │
+   └────────────────────────────────────┘
+        │
+        ├──► PostgreSQL
+        │
+        └──► Stripe API (sandbox)
+                │
+                └──► Webhook → mise à jour commande
+```
 
----
-
-# Fonctionnalités principales
-
-## Utilisateurs
-
-* Connexion via Google OAuth2
-* Création automatique de compte
-* Gestion du profil utilisateur
-* Suppression de compte (RGPD)
-
----
-
-## Produits
-
-* Catalogue de meubles
-* Détails produit
-* Affichage images et prix
+L'architecture backend est un **monolithe modulaire** : séparation stricte par domaine métier (Auth, User, Product, Order, Payment, RGPD), architecture en couches Controller / Service / Repository / Entity / DTO.
 
 ---
 
-## Panier
+## Fonctionnalités
 
-* Ajout / suppression de produits
-* Gestion des quantités
-* Calcul total en temps réel
-* Stockage local sur mobile
+### Authentification & Utilisateurs
+- Connexion via Google OAuth2 (`expo-auth-session` → validation `id_token` backend)
+- Génération JWT applicatif — sessions stateless
+- Gestion de profil utilisateur
+- Suppression de compte (RGPD)
 
----
+### Catalogue & Panier
+- Catalogue produits (liste + détail)
+- Panier local persistant (Zustand + AsyncStorage)
+- Calcul du total en temps réel
+- Synchronisation panier → commande au checkout
 
-## Commandes & paiement
+### Commandes & Paiement
+- Création de commande avec snapshot prix produit
+- Stripe Checkout Session (mode sandbox)
+- Webhook `payment_intent.succeeded` → mise à jour statut commande
+- Historique des commandes par utilisateur
 
-* Création de commande
-* Paiement Stripe (sandbox)
-* Webhook de confirmation
-* Mise à jour du statut de commande
-
----
-
-## RGPD
-
-* Export des données utilisateur (JSON)
-* Suppression complète des données
-* Anonymisation des données sensibles (commandes, paiements)
-
----
-
-# Architecture backend
-
-Le backend est structuré en modules :
-
-* Auth
-* User
-* Product
-* Cart
-* Order
-* Payment
-* Common (config, errors, utils)
+### RGPD
+- Export des données personnelles (JSON)
+- Suppression complète du compte
+- Anonymisation des données transactionnelles
 
 ---
 
-# Modèle de données (simplifié)
+## Modèle de données
 
-* User
-* Product
-* Cart (local côté mobile)
-* Order
-* OrderItem
-* Payment
+```
+User ──────────────── Order ──────────── OrderItem
+  │                     │                    │
+  │ 1:N                 │ 1:N                │ N:1
+  │                     ▼                    ▼
+  └──────────────► OrderItem ◄───────── Product
+                        │
+                        │ 1:1
+                        ▼
+                     Payment
+```
 
----
-
-# Statut du projet
-
-* ✔ Backend : en cours de développement
-* ✔ Mobile : en conception
-* ✔ Stripe : intégré en mode sandbox
-* ✔ RGPD : conçu dès l’architecture
-
----
-
-# Axes d’amélioration
-
-* Ajout d’un dashboard administrateur
-* Système de recommandation produits
-* Notifications push (commandes)
-* Mode offline avancé
-* Déploiement cloud (AWS / Render)
-* Ajout analytics utilisateur anonymisées
+> Le prix unitaire est **figé au moment de la commande** (snapshot dans `OrderItem`),
+> garantissant la cohérence de l'historique quel que soit l'évolution du catalogue.
 
 ---
 
-# Résultat attendu
+## Flux paiement
 
-À la fin du projet, FurniGo permettra de démontrer :
-
-* une architecture backend propre et sécurisée
-* une application mobile complète fonctionnelle
-* une intégration Stripe réaliste
-* une gestion des données conforme RGPD
-* une capacité à concevoir un produit fullstack structuré
+```
+Mobile ──► POST /orders ──► Spring Boot ──► Création Order (PENDING)
+                                    │
+                                    └──► Stripe: Create Checkout Session
+                                                │
+                                         URL Checkout ──► Mobile
+                                                │
+                                     Paiement utilisateur
+                                                │
+                                    Stripe ──► Webhook ──► Spring Boot
+                                                              │
+                                                    Update Order = PAID
+```
 
 ---
 
-#  Auteur
+## Lancer le projet
 
-Donovan Chartrain Développeur Web Full-Stack
+### Prérequis
 
-🔗 GitHub : https://github.com/donovan-dev-web
+- Java 21
+- Node.js 20+
+- Docker & Docker Compose
+- Compte Stripe (clés sandbox)
+- Projet Google Cloud (OAuth2 credentials)
 
+### Backend
+
+```bash
+# Copier les variables d'environnement
+cp backend/.env.example backend/.env
+# Renseigner les valeurs dans backend/.env
+
+# Lancer PostgreSQL + backend via Docker Compose
+docker-compose up --build
+
+# Le backend démarre sur http://localhost:8080
+```
+
+### Mobile
+
+```bash
+cd mobile
+
+# Copier les variables d'environnement
+cp .env.example .env
+# Renseigner EXPO_PUBLIC_API_BASE_URL et EXPO_PUBLIC_GOOGLE_CLIENT_ID
+
+npm install
+npx expo start
+```
+
+---
+
+## Décisions techniques notables
+
+| Sujet | Décision | Justification |
+|---|---|---|
+| Architecture backend | Monolithe modulaire | Évite l'over-engineering pour un MVP portfolio |
+| Auth mobile | `expo-auth-session` + validation `id_token` | Seule approche compatible Expo sans ejection |
+| Panier | 100% local (AsyncStorage) | Simplifie l'architecture — synchronisation uniquement au checkout |
+| JWT | Reconnexion forcée à expiration | Pas de refresh token en MVP — comportement documenté |
+| Images produits | Volume Docker local | Cloudinary / S3 prévu en évolution post-MVP |
+| Tests | JUnit 5 / Mockito sur couche Service | Priorité sur la logique métier critique |
+
+---
+
+## CI/CD
+
+Deux pipelines GitHub Actions sont en place :
+
+| Pipeline | Déclencheur | Jobs |
+|---|---|---|
+| `backend-ci.yml` | Push / PR sur `backend/**` | Compilation Maven, tests JUnit, Checkstyle |
+| `mobile-ci.yml` | Push / PR sur `mobile/**` | Install, ESLint, TypeScript check, Expo Doctor |
+
+Les workflows ne se déclenchent que si les fichiers de leur périmètre sont modifiés, évitant les exécutions inutiles.
+
+---
+
+## Workflow de développement
+
+Ce projet suit un workflow Git structuré :
+
+```
+main        ← code stable (merge en fin de milestone)
+develop     ← branche d'intégration
+feature/*   ← développement de chaque feature
+fix/*       ← corrections
+```
+
+Chaque fonctionnalité correspond à une **GitHub Issue** liée à une **Pull Request**, tracée dans le **Kanban GitHub Projects**.
+
+Convention de commits : **Conventional Commits** (`feat:`, `fix:`, `chore:`, `test:`, `docs:`, `ci:`)
+
+---
+
+## Documentation
+
+| Document | Contenu |
+|---|---|
+| [📋 Spécification fonctionnelle](docs/spec-fonctionnelle.md) | Périmètre, parcours utilisateur, règles métier |
+| [⚙️ Spécification technique](docs/spec-technique.md) | Architecture, stack, flux, décisions techniques |
+| [📊 Diagrammes](docs/diagrammes.md) | Flux auth, paiement, RGPD, modèle de données |
+| [📖 User Stories](docs/user-stories.md) | Epics et critères d'acceptation |
+| [✅ Tâches](docs/taches.md) | Backlog complet lié aux issues GitHub |
+| [🎨 Maquettes](docs/maquettes.md) | Aperçu de tous les écrans (light & dark) |
+
+---
+
+## Roadmap
+
+- [x] Documentation complète (spec fonctionnelle, technique, diagrammes, user stories)
+- [x] Maquettes UI (light & dark — tous les écrans)
+- [x] Configuration CI/CD (GitHub Actions)
+- [x] Structure backend Spring Boot (modules)
+- [ ] Authentification Google OAuth2 (backend)
+- [ ] API Produits
+- [ ] API Commandes
+- [ ] Intégration Stripe Checkout
+- [ ] Application mobile React Native
+- [ ] Tests unitaires (couche Service)
+- [ ] RGPD (export + suppression)
+
+---
+
+## Auteur
+
+**Donovan Chartrain** — Développeur Web Fullstack & Mobile
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-donovan--dev--web.vercel.app-black)](https://donovan-dev-web.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-donovan--dev--web-181717?logo=github)](https://github.com/donovan-dev-web)
+
+> Projet réalisé dans une logique de portfolio technique avancé,  
+> en ciblant les compétences recherchées sur le marché local (Java/Spring Boot, React Native).

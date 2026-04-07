@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-dim": "#405849",
+                    "on-secondary-container": "#644e2e",
+                    "on-surface-variant": "#a1acae",
+                    "on-tertiary-fixed-variant": "#676666",
+                    "on-surface": "#f1f1f1",
+                    "tertiary-fixed": "#2d2d2c",
+                    "secondary-dim": "#664f2f",
+                    "primary": "#8fb29b",
+                    "surface-tint": "#8fb29b",
+                    "on-tertiary-fixed": "#f6f3f2",
+                    "surface-container-high": "#282d2e",
+                    "tertiary-fixed-dim": "#3d3b3a",
+                    "secondary-container": "#4d3a22",
+                    "on-primary-fixed-variant": "#8fb29b",
+                    "background": "#121414",
+                    "secondary-fixed-dim": "#efd0a6",
+                    "primary-fixed": "#2d4437",
+                    "on-primary": "#1a241e",
+                    "on-background": "#f1f1f1",
+                    "surface-container-low": "#1a1e1f",
+                    "on-secondary-fixed": "#feddb3",
+                    "surface-container-highest": "#323839",
+                    "secondary-fixed": "#feddb3",
+                    "tertiary": "#d4d4d4",
+                    "outline": "#8a9293",
+                    "inverse-on-surface": "#2d3435",
+                    "inverse-surface": "#f1f1f1",
+                    "primary-container": "#2d4437",
+                    "tertiary-dim": "#b5b5b5",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-container": "#cee9d6",
+                    "error-container": "#93000a",
+                    "inverse-primary": "#4c6455",
+                    "on-tertiary": "#1a1a1a",
+                    "surface-dim": "#121414",
+                    "on-error": "#690005",
+                    "error-dim": "#ffb4ab",
+                    "surface": "#121414",
+                    "surface-variant": "#3f4849",
+                    "on-secondary": "#3e2e16",
+                    "surface-bright": "#373a3a",
+                    "on-primary-fixed": "#cee9d6",
+                    "surface-container-lowest": "#0c0f0f",
+                    "outline-variant": "#3f4849",
+                    "error": "#ffb4ab",
+                    "primary-fixed-dim": "#b3d1bc",
+                    "secondary": "#efd0a6",
+                    "tertiary-container": "#4a4949",
+                    "on-tertiary-container": "#f6f3f2",
+                    "on-secondary-fixed-variant": "#feddb3",
+                    "surface-container": "#1e2425"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased min-h-screen flex flex-col">
+<!-- TopAppBar Suppressed for Transactional Success Screen Priority -->
+<main class="flex-grow flex items-center justify-center p-6 sm:p-12 relative overflow-hidden">
+<!-- Abstract Background Shape for Editorial Flair -->
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-container/20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-secondary-container/10 rounded-full blur-3xl"></div>
+<div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-center z-10">
+<!-- Success Visual Block -->
+<div class="md:col-span-5 order-2 md:order-1">
+<div class="relative">
+<div class="bg-surface-container-low rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl ring-1 ring-white/5">
+<img class="w-full h-full object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700" data-alt="Modern minimalist living room with warm sunlight streaming through large windows hitting a textured beige sofa and olive green plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaJUjx6m-Fgl4p6c8zd-I9RDqld2GsIAwjwD-yg7yqDFQvd3IcI2VqCOBTeiHNkTptdAy4g9drE406OVokUmLQE33U-tEmQ837KBR5QLFt5H-d2A10aH1EB3JI2IMBrxJ_vrl9h3NURiydEKhFcQTpnprqwIa-GTOkwMcrwOpmJj8eT6xSA7tORgx2evooXPIAvyqaG1zaTjfrV2xps7YBdnnw-L9Mg0fbvQopAPsugQ19dSRlQmO7mnUhkVamqQpnrkptZEj1geQ"/>
+</div>
+<!-- Floating Success Icon Badge -->
+<div class="absolute -top-6 -right-6 bg-primary text-on-primary p-6 rounded-3xl shadow-2xl transform rotate-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Success Content Block -->
+<div class="md:col-span-7 md:pl-8 order-1 md:order-2 space-y-8">
+<div class="space-y-4">
+<span class="font-label text-primary font-bold tracking-[0.2em] uppercase text-xs">Succès de la Commande</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tight text-on-surface leading-tight">
+                    Paiement Réussi !
+                </h1>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-md">
+                    Merci pour votre achat. Votre commande est en cours de préparation dans nos ateliers scandinaves.
+                </p>
+</div>
+<!-- Order Reference Card -->
+<div class="bg-surface-container-low p-6 rounded-2xl flex items-center justify-between border-l-4 border-primary shadow-inner">
+<div>
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-1">Référence de Commande</p>
+<p class="font-headline text-xl font-bold text-on-surface">#FG-987654</p>
+</div>
+<div class="bg-primary-container p-3 rounded-xl">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="package_2">package_2</span>
+</div>
+</div>
+<!-- Action Buttons Cluster -->
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<a class="inline-flex items-center justify-center px-8 py-4 bg-primary text-on-primary font-label font-bold rounded-xl transition-all active:scale-95 shadow-[0_12px_24px_-8px_rgba(143,178,155,0.4)] hover:brightness-110" href="#">
+                    Voir mes commandes
+                </a>
+<a class="inline-flex items-center justify-center px-8 py-4 bg-surface-container-high text-on-surface font-label font-bold rounded-xl transition-all active:scale-95 hover:bg-surface-container-highest border border-outline/20" href="#">
+                    Retour à l'accueil
+                </a>
+</div>
+<!-- Small Trust Indicator -->
+<div class="pt-8 flex items-center gap-3 text-on-surface-variant/40 text-sm">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<p class="font-body">Paiement sécurisé et confirmé par FurniGo S.A.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="p-8 text-center text-on-surface-variant/20 text-xs font-label tracking-widest uppercase">
+    FurniGo — L'Art de Vivre Scandinave
+</footer>
+</body></html>
