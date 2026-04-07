@@ -1,0 +1,28 @@
+# ============ BACKEND (Spring Boot / Maven) ============
+backend/target/
+backend/.mvn/
+backend/*.iml
+backend/.idea/
+backend/.env
+backend/application-local.properties
+
+# ============ MOBILE (React Native / Expo) ============
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+mobile/.env
+mobile/.env.local
+mobile/.env.production
+
+# ============ GENERAL ============
+.DS_Store
+*.log
+*.tmp
+.env
+.env.*
+!.env.example
+
+# ============ IDE ============
+.idea/
+.vscode/
+*.iml
