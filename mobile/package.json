@@ -1,7 +1,11 @@
 {
   "name": "mobile",
   "version": "1.0.0",
+<<<<<<< HEAD
   "main": "expo-router/entry",
+=======
+  "main": "index.ts",
+>>>>>>> main
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -11,6 +15,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@expo-google-fonts/dm-sans": "^0.4.2",
     "@expo-google-fonts/dm-serif-display": "^0.4.2",
     "@react-native-async-storage/async-storage": "2.2.0",
@@ -32,6 +37,13 @@
     "react-native-screens": "~4.16.0",
     "type-check": "^0.4.0",
     "zustand": "^5.0.12"
+=======
+    "expo": "~54.0.33",
+    "expo-status-bar": "~3.0.9",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "type-check": "^0.4.0"
+>>>>>>> main
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
