@@ -26,6 +26,7 @@ const palette = {
   terracotta600: "#8C3E18",
 
   // Succès, Erreur, Warning
+  sage300: "#43664e",
   sage400: "#5A8A6A",
   sage600: "#3D6B50",
   red400: "#C0392B",
@@ -57,6 +58,7 @@ export const lightTheme = {
   colors: {
     // Fond
     background: palette.ivory50,
+    backgroundCTA: palette.sage400,
     backgroundSecondary: palette.ivory100,
     backgroundTertiary: palette.ivory200,
     surface: palette.white,
@@ -107,6 +109,7 @@ export const darkTheme = {
   colors: {
     // Fond
     background: palette.walnut900,
+    backgroundCTA: palette.sage400,
     backgroundSecondary: palette.walnut800,
     backgroundTertiary: palette.walnut700,
     surface: palette.walnut800,
