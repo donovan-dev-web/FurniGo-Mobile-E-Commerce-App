@@ -1,5 +1,4 @@
-import { Pressable, StyleSheet, Text, View, ImageBackground, ActivityIndicator } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Pressable, StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuthStore } from "@/store/authStore";
 import { useGoogleAuth } from "@/hooks/useGoogleAuth";
