@@ -240,7 +240,7 @@ Convention de commits : **Conventional Commits** (`feat:`, `fix:`, `chore:`, `te
 - [x] Configuration CI/CD (GitHub Actions)
 - [x] Structure backend Spring Boot (modules)
 - [x] Authentification Google OAuth2 (backend)
-- [ ] API Produits
+- [x] API Produits
 - [ ] API Commandes
 - [ ] Intégration Stripe Checkout
 - [ ] Application mobile React Native
