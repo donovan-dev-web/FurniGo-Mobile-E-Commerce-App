@@ -1,48 +1,88 @@
+import { useEffect, useMemo, useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
-
-const categories = ["Tout", "Salon", "Chambre", "Bureau", "Cuisine"];
-
-const products = [
-  {
-    id: "1",
-    name: "Sofa Nordique",
-    subtitle: "Tissu gris perle",
-    price: "499€",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuB9uZdT1dq3lZu-JzRgivrdLre1RkxIxAeWN1GGgEkhODpztNqL1b3avsE6-Wwydu_GDZ28fdYPG5cvTzN-F21EGkezjSXBLxa9chxp_ER5PJU9ynK2NrHfUfauA0_iw6qdF_IwxO4m1USQU5_oMOrUfyOA7Nck43WQVCMKtVTroFWLGZXTvIG_sNB_cgsTPhrljQiKfRyVJA5z2IajN0Mc2rXB0-9A7o_0rbU0HU_8YXXOnBVitXj39SXynaN10sKXFVAlOW3YiyQ",
-  },
-  {
-    id: "2",
-    name: "Table Oslo",
-    subtitle: "Chene massif",
-    price: "345€",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuC25x69wOfyc_2nISCQH6V6CbtoPesfU9QFIUNhy4OK0Ann-7aHyrMkFYaI19uN3LGUu4pujfQMEzYyqfYMBpQGg6Ke2emCs9yTeCUg7ruEkRQRPFyc5obMy4LI2ABlZyuyX4nfK0yL6fGSErO1JeCiwjqqgWQds9Po1CqYTuKeXnnLjiyIoZGMn2fcbgtiXSRPg4djMcifAvD8mvjQ_TNE_ECaZ6DIk3xeE5gpAmHK_nDkhIBn74RZSRyqu7myaz2Snb6uma0vdxM",
-  },
-  {
-    id: "3",
-    name: "Fauteuil Velvet",
-    subtitle: "Vert sapin",
-    price: "220€",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAt6aKOmWQdvdZ4rYDoLl-y2FY4LfS1Tdy2vjtLadMbyYo0xX3zO6heSMwBHPaa1dJnXFE_Jbjnj_28VnC8EPKZiZD98ii-b2pqQMpP8utMHTE9cl8PnlxldXfNfeRGUoLdAD9gyOjxtY9aFdFymkUR6nH8PGBY8DiZ0xxIlmAOk5ESJ9tEsg2pMpWcW_gKfwDU-21TUChYA2Omcqt8W_mHEdIhEmpb-AAqH4cW9TafXfFUucvamJNvuW0hw7yLHETT7vMmDWK5vQY",
-  },
-  {
-    id: "4",
-    name: "Lampe Lumi",
-    subtitle: "Noir mat",
-    price: "89€",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuBqZX57vQBOJ7c3pmxcNw-gnrac0NVfiDepFCVSbxd5z0M3_STJMi2iMQEAKkNlROl13dgNA83-JaBR7B3pXNmWvYwlr1OZVwLeQeymcE_r8Vq7L_1PhuVQDaNZpYEv-lsSZCdhgBLw-vBn447Dfw_eHj4wUBm0s26rTFbzCzxUurANbkdoJK5zwrLscp0Lwky6LMuI_uh8NVkV1GvwFRfonU3QohqfUT0nBhUB-l-LqgfedN_jc5CmMdhjL7Pjuhrz5pUKQBwucLE",
-  },
-];
+import { Loader } from "@/components/ui/Loader";
+import { Product } from "@/types/product";
+import { formatProductPrice, getProducts } from "@/services/productService";
+import { buildUploadUrl } from "@/services/api";
 
 export default function CatalogueScreen() {
   const { theme, isDark } = useTheme();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("Tout");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    void loadProducts();
+  }, []);
+
+  async function loadProducts() {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = await getProducts();
+      setProducts(data);
+    } catch (err: unknown) {
+      const apiError = err as { response?: { data?: { message?: string } }; message?: string };
+      setError(
+        apiError.response?.data?.message ??
+          apiError.message ??
+          "Impossible de charger le catalogue pour le moment."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const categories = useMemo(() => {
+    const uniqueCategories = Array.from(
+      new Set(
+        products
+          .map((product) => product.category?.trim())
+          .filter((category): category is string => Boolean(category))
+      )
+    );
+
+    return ["Tout", ...uniqueCategories];
+  }, [products]);
+
+  const filteredProducts = useMemo(() => {
+    if (selectedCategory === "Tout") {
+      return products;
+    }
+
+    return products.filter((product) => product.category === selectedCategory);
+  }, [products, selectedCategory]);
+
+  useEffect(() => {
+    if (!categories.includes(selectedCategory)) {
+      setSelectedCategory("Tout");
+    }
+  }, [categories, selectedCategory]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView edges={["top", "left", "right"]} style={[styles.safe, { backgroundColor: theme.colors.background }]}>
+        <View style={styles.centerState}>
+          <Text style={[styles.stateTitle, { color: theme.colors.textPrimary }]}>Catalogue indisponible</Text>
+          <Text style={[styles.stateText, { color: theme.colors.textSecondary }]}>{error}</Text>
+          <Pressable style={[styles.retryButton, { backgroundColor: theme.colors.accent }]} onPress={() => void loadProducts()}>
+            <Text style={[typography.labelLg, { color: theme.colors.textOnAccent }]}>Reessayer</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={[styles.safe, { backgroundColor: theme.colors.background }]}>
@@ -73,7 +113,9 @@ export default function CatalogueScreen() {
         >
           <Image
             source={{
-              uri: "https://lh3.googleusercontent.com/aida-public/AB6AXuACAG5SPkL_H57DnCMUaUfx5s10GZIAzRI4Drepnt9tlJMZRzHxHqehQ_31Z9zwFxgD0L3fj_UebyeHFcn78PFUyu8wF2bkPOs0JOFUlmj0NXRAAcrO6lRGNrRwVrZ_UvBQ3ruK6DyIFL8fqi6sPtQQuRE_r5tzA2gCuk5O-YEuuxMDd1GeNhWhndHQ-hVTF-i_eltHqDDSMvTcRoJQ5OaHZzTlC4rrASm_J6DGGzH-3xeb2037qYluV0wBQ78aLjMK6_aKTIJNDoU",
+              uri:
+                buildUploadUrl(filteredProducts[0]?.coverImage) ??
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuACAG5SPkL_H57DnCMUaUfx5s10GZIAzRI4Drepnt9tlJMZRzHxHqehQ_31Z9zwFxgD0L3fj_UebyeHFcn78PFUyu8wF2bkPOs0JOFUlmj0NXRAAcrO6lRGNrRwVrZ_UvBQ3ruK6DyIFL8fqi6sPtQQuRE_r5tzA2gCuk5O-YEuuxMDd1GeNhWhndHQ-hVTF-i_eltHqDDSMvTcRoJQ5OaHZzTlC4rrASm_J6DGGzH-3xeb2037qYluV0wBQ78aLjMK6_aKTIJNDoU",
             }}
             style={[styles.heroImage, { opacity: isDark ? 0.55 : 0.82 }]}
           />
@@ -100,11 +142,12 @@ export default function CatalogueScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.categoriesRow}
         >
-          {categories.map((category, index) => {
-            const active = index === 0;
+          {categories.map((category) => {
+            const active = selectedCategory === category;
             return (
-              <View
+              <Pressable
                 key={category}
+                onPress={() => setSelectedCategory(category)}
                 style={[
                   styles.categoryChip,
                   {
@@ -128,45 +171,74 @@ export default function CatalogueScreen() {
                 >
                   {category}
                 </Text>
-              </View>
+              </Pressable>
             );
           })}
         </ScrollView>
 
         <View style={styles.sectionHeader}>
           <Text style={[styles.sectionTitle, { color: theme.colors.textPrimary }]}>Nouveautes</Text>
-          <Text style={[styles.sectionAction, { color: theme.colors.accent }]}>Voir tout</Text>
+          <Text style={[styles.sectionAction, { color: theme.colors.accent }]}>
+            {filteredProducts.length} produit{filteredProducts.length > 1 ? "s" : ""}
+          </Text>
         </View>
 
-        <View style={styles.grid}>
-          {products.map((product, index) => (
-            <View key={product.id} style={[styles.productCard, index % 2 === 1 && styles.offsetCard]}>
-              <View
-                style={[
-                  styles.productImageWrap,
-                  { backgroundColor: theme.colors.backgroundSecondary },
-                ]}
+        {filteredProducts.length === 0 ? (
+          <View style={[styles.emptyState, { backgroundColor: theme.colors.backgroundSecondary }]}>
+            <Text style={[styles.stateTitle, { color: theme.colors.textPrimary }]}>Aucun produit</Text>
+            <Text style={[styles.stateText, { color: theme.colors.textSecondary }]}>
+              Aucun produit ne correspond a cette categorie pour le moment.
+            </Text>
+          </View>
+        ) : (
+          <View style={styles.grid}>
+            {filteredProducts.map((product, index) => (
+              <Pressable
+                key={product.id}
+                style={[styles.productCard, index % 2 === 1 && styles.offsetCard]}
+                onPress={() =>
+                  router.push({
+                    pathname: "/product/[id]",
+                    params: { id: product.id },
+                  })
+                }
               >
-                <Image source={{ uri: product.image }} style={styles.productImage} />
-                <Pressable
+                <View
                   style={[
-                    styles.addButton,
-                    {
-                      backgroundColor: isDark ? "rgba(12,15,15,0.88)" : "rgba(255,255,255,0.92)",
-                    },
+                    styles.productImageWrap,
+                    { backgroundColor: theme.colors.backgroundSecondary },
                   ]}
                 >
-                  <Ionicons name="add" size={18} color={theme.colors.accent} />
-                </Pressable>
-              </View>
-              <Text style={[styles.productName, { color: theme.colors.textPrimary }]}>{product.name}</Text>
-              <Text style={[styles.productSubtitle, { color: theme.colors.textSecondary }]}>
-                {product.subtitle}
-              </Text>
-              <Text style={[styles.productPrice, { color: theme.colors.accent }]}>{product.price}</Text>
-            </View>
-          ))}
-        </View>
+                  <Image
+                    source={{
+                      uri:
+                        buildUploadUrl(product.coverImage) ??
+                        "https://via.placeholder.com/600x750?text=FurniGo",
+                    }}
+                    style={styles.productImage}
+                  />
+                  <Pressable
+                    style={[
+                      styles.addButton,
+                      {
+                        backgroundColor: isDark ? "rgba(12,15,15,0.88)" : "rgba(255,255,255,0.92)",
+                      },
+                    ]}
+                  >
+                    <Ionicons name="add" size={18} color={theme.colors.accent} />
+                  </Pressable>
+                </View>
+                <Text style={[styles.productName, { color: theme.colors.textPrimary }]}>{product.name}</Text>
+                <Text style={[styles.productSubtitle, { color: theme.colors.textSecondary }]}>
+                  {product.category ?? "Collection FurniGo"}
+                </Text>
+                <Text style={[styles.productPrice, { color: theme.colors.accent }]}>
+                  {formatProductPrice(product.price)}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -292,5 +364,34 @@ const styles = StyleSheet.create({
     fontSize: 22,
     lineHeight: 24,
     fontWeight: "800",
+  },
+  centerState: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: spacing.xl,
+  },
+  emptyState: {
+    borderRadius: 24,
+    padding: spacing.xl,
+  },
+  stateTitle: {
+    fontFamily: typography.displaySm.fontFamily,
+    fontSize: 24,
+    lineHeight: 28,
+    textAlign: "center",
+  },
+  stateText: {
+    ...typography.bodyMd,
+    textAlign: "center",
+    marginTop: spacing.sm,
+  },
+  retryButton: {
+    marginTop: spacing.xl,
+    minHeight: 52,
+    borderRadius: radius.lg,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: spacing.xl,
   },
 });
