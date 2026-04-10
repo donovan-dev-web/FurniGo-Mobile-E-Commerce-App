@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,6 +9,12 @@ import { radius, spacing, typography } from "@/constants/theme";
 import { formatProductPrice, getProductById } from "@/services/productService";
 import { Product } from "@/types/product";
 import { buildUploadUrl } from "@/services/api";
+
+  const { width } = Dimensions.get("window");
+  const ITEM_WIDTH = 320;
+  const SPACING = 16;
+  const SNAP_INTERVAL = ITEM_WIDTH + SPACING;
+  const SIDE_PADDING = (width - ITEM_WIDTH) / 2;
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -90,18 +96,33 @@ export default function ProductDetailScreen() {
         <View style={styles.heroSection}>
           <ScrollView
             horizontal
-            pagingEnabled
             showsHorizontalScrollIndicator={false}
+            snapToInterval={SNAP_INTERVAL}
+            decelerationRate="fast"
+            disableIntervalMomentum
+            snapToAlignment="start"
+            contentContainerStyle={{
+              paddingHorizontal: SIDE_PADDING,
+            }}
             onMomentumScrollEnd={(event) => {
-              const index = Math.round(event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width);
+              const index = Math.round(
+                event.nativeEvent.contentOffset.x / SNAP_INTERVAL
+              );
               setSelectedImageIndex(index);
             }}
           >
-            {getProductGallery(product).map((image) => (
-              <View
-                key={image}
-                style={[styles.heroCard, styles.heroSlide, { backgroundColor: theme.colors.backgroundSecondary }]}
-              >
+          {getProductGallery(product).map((image, index, array) => (
+            <View
+              key={image}
+              style={[
+                styles.heroCard,
+                styles.heroSlide,
+                {
+                  backgroundColor: theme.colors.backgroundSecondary,
+                  marginRight: index === array.length - 1 ? 0 : SPACING,
+                },
+              ]}
+            >
                 <Image
                   source={{
                     uri: buildUploadUrl(image) ?? "https://via.placeholder.com/800x1000?text=FurniGo",
@@ -286,8 +307,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   heroSlide: {
-    width: 360,
-    marginRight: spacing.md,
+    width: ITEM_WIDTH,
+    marginRight: SPACING,
   },
   heroImage: {
     width: "100%",
