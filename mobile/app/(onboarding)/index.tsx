@@ -166,14 +166,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: spacing.xl,
-    paddingTop: spacing.md,
+    paddingTop: spacing.xs,
     paddingBottom: spacing.xl,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: spacing.xl,
+    marginBottom: spacing.xs,
   },
   brand: {
     fontFamily: typography.displaySm.fontFamily,
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: spacing.md,
-    marginBottom: spacing.xxxl,
+    marginBottom: spacing.lg,
   },
   frameShadow: {
     position: "absolute",

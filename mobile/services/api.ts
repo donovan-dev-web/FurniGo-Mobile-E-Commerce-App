@@ -20,6 +20,24 @@ export const api = axios.create({
   },
 });
 
+export function getApiBaseUrl(): string {
+  return (api.defaults.baseURL ?? "http://localhost:8080").replace(/\/+$/, "");
+}
+
+export function buildUploadUrl(pathOrFileName: string | null | undefined): string | null {
+  if (!pathOrFileName) return null;
+
+  if (/^https?:\/\//i.test(pathOrFileName)) {
+    return pathOrFileName;
+  }
+
+  const normalizedPath = pathOrFileName.startsWith("/uploads/")
+    ? pathOrFileName
+    : `/uploads/products/${pathOrFileName.replace(/^\/+/, "")}`;
+
+  return `${getApiBaseUrl()}${normalizedPath}`;
+}
+
 // ─────────────────────────────────────────────
 // Intercepteur requête — injecte le JWT
 // ─────────────────────────────────────────────
