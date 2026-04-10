@@ -239,7 +239,7 @@ Convention de commits : **Conventional Commits** (`feat:`, `fix:`, `chore:`, `te
 - [x] Maquettes UI (light & dark — tous les écrans)
 - [x] Configuration CI/CD (GitHub Actions)
 - [x] Structure backend Spring Boot (modules)
-- [ ] Authentification Google OAuth2 (backend)
+- [x] Authentification Google OAuth2 (backend)
 - [ ] API Produits
 - [ ] API Commandes
 - [ ] Intégration Stripe Checkout
