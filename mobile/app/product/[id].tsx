@@ -9,6 +9,8 @@ import { radius, spacing, typography } from "@/constants/theme";
 import { formatProductPrice, getProductById } from "@/services/productService";
 import { Product } from "@/types/product";
 import { buildUploadUrl } from "@/services/api";
+import { useCartStore } from "@/store/cartStore";
+import { AddToCartModal } from "@/components/cart/AddToCartModal";
 
   const { width } = Dimensions.get("window");
   const ITEM_WIDTH = 320;
@@ -24,6 +26,9 @@ export default function ProductDetailScreen() {
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [isAddToCartModalVisible, setIsAddToCartModalVisible] = useState(false);
+  const addItem = useCartStore((state) => state.addItem);
+  const totalItems = useCartStore((state) => state.getTotalItems());
 
   useEffect(() => {
     if (!id) return;
@@ -48,6 +53,15 @@ export default function ProductDetailScreen() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function handleAddToCart() {
+    if (!product) {
+      return;
+    }
+
+    addItem(product, quantity);
+    setIsAddToCartModalVisible(true);
   }
 
   if (isLoading) {
@@ -87,8 +101,15 @@ export default function ProductDetailScreen() {
           <Ionicons name="arrow-back" size={20} color={theme.colors.textPrimary} />
         </Pressable>
         <Text style={[styles.brand, { color: theme.colors.textPrimary }]}>FurniGo</Text>
-        <Pressable style={styles.iconButton}>
-          <Ionicons name="share-social-outline" size={20} color={theme.colors.textPrimary} />
+        <Pressable style={styles.iconButton} onPress={() => router.push("/(main)/panier")}>
+          <Ionicons name="cart-outline" size={22} color={theme.colors.textPrimary} />
+          {totalItems > 0 ? (
+            <View style={[styles.badge, { backgroundColor: theme.colors.accent }]}>
+              <Text style={[styles.badgeText, { color: theme.colors.textOnAccent }]}>
+                {totalItems > 99 ? "99+" : totalItems}
+              </Text>
+            </View>
+          ) : null}
         </Pressable>
       </View>
 
@@ -215,18 +236,20 @@ export default function ProductDetailScreen() {
           },
         ]}
       >
-        <Pressable style={[styles.outlineAction, { borderColor: theme.colors.accent }]}>
+        <Pressable
+          style={[styles.outlineAction, { borderColor: theme.colors.accent }]}
+          onPress={handleAddToCart}
+        >
           <Text style={[typography.labelLg, { color: theme.colors.accent }]}>Ajouter au panier</Text>
         </Pressable>
-        <Pressable
-          style={[
-            styles.primaryAction,
-            { backgroundColor: isDark ? theme.colors.accent : theme.colors.accent },
-          ]}
-        >
-          <Text style={[typography.labelLg, { color: theme.colors.textOnAccent }]}>Acheter maintenant</Text>
-        </Pressable>
       </View>
+
+      <AddToCartModal
+        visible={isAddToCartModalVisible}
+        productName={product.name}
+        quantity={quantity}
+        onClose={() => setIsAddToCartModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }
@@ -515,5 +538,21 @@ const styles = StyleSheet.create({
     marginTop: spacing.xl,
     alignItems: "center",
     justifyContent: "center",
+  },
+    badge: {
+    position: "absolute",
+    top: 3,
+    right: 1,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    paddingHorizontal: 4,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  badgeText: {
+    fontFamily: typography.labelMd.fontFamily,
+    fontSize: 10,
+    lineHeight: 10,
   },
 });

@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../context/ThemeContext";
 import { useAuthStore } from "../../store/authStore";
 import { radius, spacing, typography } from "../../constants/theme";
+import { MainTopBar } from "@/components/navigation/MainTopBar";
 
 const profileActions = [
   { id: "info", icon: "person-outline", label: "Mes informations personnelles" },
@@ -43,11 +44,7 @@ export default function ProfilScreen() {
         contentContainerStyle={[styles.content, { paddingBottom: 180 }]}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.topBar}>
-          <Ionicons name="menu-outline" size={22} color={theme.colors.textPrimary} />
-          <Text style={[styles.brand, { color: theme.colors.textPrimary }]}>FurniGo</Text>
-          <Ionicons name="search-outline" size={22} color={theme.colors.textPrimary} />
-        </View>
+        <MainTopBar />
 
         <View style={styles.profileHeader}>
           <View style={styles.avatarWrap}>
@@ -192,18 +189,6 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: spacing.xl,
     paddingTop: spacing.sm,
-  },
-  topBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: spacing.xl,
-  },
-  brand: {
-    fontFamily: typography.displaySm.fontFamily,
-    fontSize: 28,
-    fontStyle: "italic",
-    fontWeight: "900",
   },
   profileHeader: {
     alignItems: "center",

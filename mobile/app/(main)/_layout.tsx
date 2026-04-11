@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuthStore } from "../../store/authStore";
 import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
+import { useCartStore } from "@/store/cartStore";
 
 type TabIconName = keyof typeof Ionicons.glyphMap;
 
@@ -31,13 +32,19 @@ function TabBarIcon({ color, focused, name }: TabBarIconProps) {
 export default function MainLayout() {
   const { theme, isDark } = useTheme();
   const status = useAuthStore((s) => s.status);
+  const userId = useAuthStore((s) => s.user?.id);
   const insets = useSafeAreaInsets();
+  const setCartOwner = useCartStore((s) => s.setOwner);
 
   useEffect(() => {
     if (status === "unauthenticated") {
       router.replace("/(auth)/login");
     }
   }, [status]);
+
+  useEffect(() => {
+    setCartOwner(status === "authenticated" ? userId : null);
+  }, [setCartOwner, status, userId]);
 
   return (
     <Tabs

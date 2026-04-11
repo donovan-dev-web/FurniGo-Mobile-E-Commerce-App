@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
@@ -9,13 +9,19 @@ import { Loader } from "@/components/ui/Loader";
 import { Product } from "@/types/product";
 import { formatProductPrice, getProducts } from "@/services/productService";
 import { buildUploadUrl } from "@/services/api";
+import { MainTopBar } from "@/components/navigation/MainTopBar";
+import { AddToCartModal } from "@/components/cart/AddToCartModal";
+import { useCartStore } from "@/store/cartStore";
 
 export default function CatalogueScreen() {
   const { theme, isDark } = useTheme();
+  const { category } = useLocalSearchParams<{ category?: string }>();
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("Tout");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [addedProduct, setAddedProduct] = useState<Product | null>(null);
+  const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
     void loadProducts();
@@ -66,6 +72,24 @@ export default function CatalogueScreen() {
     }
   }, [categories, selectedCategory]);
 
+  useEffect(() => {
+    const requestedCategory = category?.trim();
+
+    if (!requestedCategory) {
+      setSelectedCategory("Tout");
+      return;
+    }
+
+    if (categories.includes(requestedCategory)) {
+      setSelectedCategory(requestedCategory);
+    }
+  }, [categories, category]);
+
+  function handleQuickAdd(product: Product) {
+    addItem(product, 1);
+    setAddedProduct(product);
+  }
+
   if (isLoading) {
     return <Loader />;
   }
@@ -91,19 +115,7 @@ export default function CatalogueScreen() {
         contentContainerStyle={[styles.content, { paddingBottom: 160 }]}
         showsVerticalScrollIndicator={false}
       >
-        <View
-          style={[
-            styles.topBar,
-            {
-              backgroundColor: isDark ? "rgba(12,15,15,0.78)" : "rgba(249,249,249,0.82)",
-              borderBottomColor: isDark ? "rgba(255,255,255,0.06)" : "transparent",
-            },
-          ]}
-        >
-          <Ionicons name="menu-outline" size={22} color={theme.colors.textPrimary} />
-          <Text style={[styles.brand, { color: theme.colors.textPrimary }]}>FurniGo</Text>
-          <Ionicons name="search-outline" size={22} color={theme.colors.textPrimary} />
-        </View>
+        <MainTopBar />
 
         <View
           style={[
@@ -218,6 +230,10 @@ export default function CatalogueScreen() {
                     style={styles.productImage}
                   />
                   <Pressable
+                    onPress={(event) => {
+                      event.stopPropagation();
+                      handleQuickAdd(product);
+                    }}
                     style={[
                       styles.addButton,
                       {
@@ -240,6 +256,13 @@ export default function CatalogueScreen() {
           </View>
         )}
       </ScrollView>
+
+      <AddToCartModal
+        visible={Boolean(addedProduct)}
+        productName={addedProduct?.name}
+        quantity={1}
+        onClose={() => setAddedProduct(null)}
+      />
     </SafeAreaView>
   );
 }
@@ -248,22 +271,6 @@ const styles = StyleSheet.create({
   safe: { flex: 1 },
   screen: { flex: 1 },
   content: { paddingHorizontal: spacing.xl, paddingTop: spacing.sm },
-  topBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginHorizontal: -spacing.xl,
-    paddingHorizontal: spacing.xl,
-    paddingBottom: spacing.md,
-    marginBottom: spacing.lg,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  brand: {
-    fontFamily: typography.displaySm.fontFamily,
-    fontSize: 28,
-    fontStyle: "italic",
-    fontWeight: "900",
-  },
   hero: {
     height: 240,
     borderRadius: 28,
