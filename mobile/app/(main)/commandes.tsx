@@ -2,6 +2,7 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
+import { MainTopBar } from "@/components/navigation/MainTopBar";
 
 const orders = [
   {
@@ -51,6 +52,8 @@ export default function CommandesScreen() {
         contentContainerStyle={[styles.content, { paddingBottom: 170 }]}
         showsVerticalScrollIndicator={false}
       >
+        <MainTopBar />
+
         <View style={styles.header}>
           <Text style={[styles.title, { color: theme.colors.textPrimary }]}>Mes Commandes</Text>
           <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
