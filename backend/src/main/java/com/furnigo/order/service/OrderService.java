@@ -26,7 +26,10 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
-    /** Crée une commande pour l'utilisateur authentifié à partir des articles envoyés. */
+    /**
+     * Crée une commande pour l'utilisateur authentifié à partir des articles
+     * envoyés.
+     */
     @Transactional
     public OrderResponse createOrder(User currentUser, CreateOrderRequest request) {
         List<OrderItem> orderItems = new ArrayList<>();
@@ -84,5 +87,12 @@ public class OrderService {
                 item.getUnitPrice(),
                 item.getQuantity(),
                 item.getUnitPrice() * item.getQuantity());
+    }
+
+    public List<OrderResponse> getOrders(User currentUser) {
+        return orderRepository.findByUserIdOrderByCreatedAtDesc(currentUser.getId())
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 }
