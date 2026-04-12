@@ -83,14 +83,16 @@ class PaymentServiceTest {
     @Test
     void should_mark_order_as_paid_when_payment_intent_succeeds() throws Exception {
         Order order = buildOrder("order-1", User.builder().id("user-1").build(), OrderStatus.PENDING);
+
         PaymentIntent paymentIntent = new PaymentIntent();
         paymentIntent.setMetadata(Map.of("orderId", "order-1"));
+
         Event event = mock(Event.class);
-        EventDataObjectDeserializer dataObjectDeserializer = mock(EventDataObjectDeserializer.class);
+        EventDataObjectDeserializer deserializer = mock(EventDataObjectDeserializer.class);
 
         when(event.getType()).thenReturn("payment_intent.succeeded");
-        when(event.getDataObjectDeserializer()).thenReturn(dataObjectDeserializer);
-        when(dataObjectDeserializer.getObject()).thenReturn(Optional.of((StripeObject) paymentIntent));
+        when(event.getDataObjectDeserializer()).thenReturn(deserializer);
+        when(deserializer.getObject()).thenReturn(Optional.of((StripeObject) paymentIntent));
 
         when(stripeProperties.getWebhookSecret()).thenReturn("whsec_test");
         when(stripeGateway.constructEvent("payload", "signature", "whsec_test")).thenReturn(event);
@@ -105,12 +107,13 @@ class PaymentServiceTest {
     void should_throw_when_webhook_targets_unknown_order() throws Exception {
         PaymentIntent paymentIntent = new PaymentIntent();
         paymentIntent.setMetadata(Map.of("orderId", "missing-order"));
+
         Event event = mock(Event.class);
-        EventDataObjectDeserializer dataObjectDeserializer = mock(EventDataObjectDeserializer.class);
+        EventDataObjectDeserializer deserializer = mock(EventDataObjectDeserializer.class);
 
         when(event.getType()).thenReturn("payment_intent.succeeded");
-        when(event.getDataObjectDeserializer()).thenReturn(dataObjectDeserializer);
-        when(dataObjectDeserializer.getObject()).thenReturn(Optional.of((StripeObject) paymentIntent));
+        when(event.getDataObjectDeserializer()).thenReturn(deserializer);
+        when(deserializer.getObject()).thenReturn(Optional.of((StripeObject) paymentIntent));
 
         when(stripeProperties.getWebhookSecret()).thenReturn("whsec_test");
         when(stripeGateway.constructEvent("payload", "signature", "whsec_test")).thenReturn(event);
