@@ -4,7 +4,8 @@ backend/.mvn/
 backend/*.iml
 backend/.idea/
 backend/.env
-backend/application-local.properties
+backend/src/main/resources/application-local.properties
+
 
 # ============ MOBILE (React Native / Expo) ============
 mobile/node_modules/

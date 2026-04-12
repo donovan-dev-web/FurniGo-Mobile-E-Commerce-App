@@ -19,7 +19,7 @@ target/
 *.iml
 *.ipr
 
-src/main/resources/application-local.properties
+/src/main/resources/application-local.properties
 
 ### NetBeans ###
 /nbproject/private/
