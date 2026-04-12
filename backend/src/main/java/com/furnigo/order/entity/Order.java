@@ -46,6 +46,9 @@ public class Order {
     @Column(nullable = false)
     private String status;
 
+    @Column(name = "stripe_checkout_session_id")
+    private String stripeCheckoutSessionId;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<OrderItem> items = new ArrayList<>();

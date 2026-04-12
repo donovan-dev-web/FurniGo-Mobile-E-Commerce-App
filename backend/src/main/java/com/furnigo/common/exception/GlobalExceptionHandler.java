@@ -2,6 +2,8 @@ package com.furnigo.common.exception;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import com.stripe.exception.SignatureVerificationException;
+import com.stripe.exception.StripeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,6 +38,26 @@ public class GlobalExceptionHandler {
                 "status", 400,
                 "error", "Bad Request",
                 "message", message,
+                "timestamp", LocalDateTime.now().toString()));
+    }
+
+    /** Gère les erreurs de webhook Stripe invalide → 400. */
+    @ExceptionHandler(SignatureVerificationException.class)
+    public ResponseEntity<Map<String, Object>> handleStripeSignature(SignatureVerificationException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                "status", 400,
+                "error", "Bad Request",
+                "message", ex.getMessage(),
+                "timestamp", LocalDateTime.now().toString()));
+    }
+
+    /** Gère les erreurs de communication Stripe → 502. */
+    @ExceptionHandler(StripeException.class)
+    public ResponseEntity<Map<String, Object>> handleStripeException(StripeException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(Map.of(
+                "status", 502,
+                "error", "Bad Gateway",
+                "message", ex.getMessage(),
                 "timestamp", LocalDateTime.now().toString()));
     }
 
