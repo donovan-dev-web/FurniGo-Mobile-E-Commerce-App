@@ -189,6 +189,14 @@ Une commande est créée à partir :
 * des données utilisateur
 * des produits sélectionnés
 
+Endpoint backend :
+
+* `POST /orders`
+* authentification JWT obligatoire
+* statut initial créé : `PENDING`
+* le prix est recalculé côté backend à partir des produits en base
+* le snapshot des lignes est stocké dans `order_items`
+
 ---
 
 ## 6.2 Structure commande
@@ -230,19 +238,33 @@ Mobile → Backend → Stripe Checkout → User Payment → Stripe Webhook → B
 * redirection vers Stripe Checkout
 * paiement en mode sandbox
 
+Endpoints backend :
+
+* `POST /payments/checkout-session`
+* payload : `{"orderId":"..." }`
+* prérequis : la commande existe, appartient à l'utilisateur connecté et est en statut `PENDING`
+* réponse : `orderId`, `checkoutSessionId`, `checkoutUrl`
+* la session Stripe embarque les metadata `orderId` et `userId` pour relier le webhook à la commande
+
 ---
 
 ## 7.3 Webhook Stripe
 
 Le backend écoute les événements :
 
-* payment_success
-* payment_failed
+* payment_intent.succeeded
+* payment_intent.payment_failed
 
 Actions :
 
 * mise à jour statut commande
 * confirmation utilisateur
+
+Endpoint backend :
+
+* `POST /payments/webhook`
+* vérification de la signature via `Stripe-Signature`
+* transition de statut : `PENDING -> PAID` ou `PENDING -> FAILED`
 
 ---
 
@@ -268,7 +290,6 @@ Actions :
 * products
 * orders
 * order_items
-* payments
 
 ---
 
@@ -276,7 +297,11 @@ Actions :
 
 * User → Orders (1:N)
 * Order → OrderItems (1:N)
-* Order → Payment (1:1)
+
+Note MVP :
+
+* aucun objet `Payment` dédié n'est persisté pour l'instant
+* l'intégration Stripe est rattachée directement à `orders` via `stripeCheckoutSessionId`
 
 ---
 

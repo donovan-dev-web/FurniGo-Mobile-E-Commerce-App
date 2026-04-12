@@ -59,6 +59,7 @@ M->>A: POST /orders (panier)
 A->>D: création Order (PENDING)
 D-->>A: orderId
 
+M->>A: POST /payments/checkout-session { orderId }
 A->>S: création Checkout Session
 S-->>A: sessionUrl
 
@@ -66,7 +67,7 @@ A-->>M: URL Stripe Checkout
 
 M->>S: Paiement utilisateur
 
-S->>A: Webhook payment_success
+S->>A: Webhook payment_intent.succeeded
 A->>D: update Order = PAID
 ```
 
@@ -79,7 +80,6 @@ erDiagram
 
 USER ||--o{ ORDER : places
 ORDER ||--|{ ORDER_ITEM : contains
-ORDER ||--|| PAYMENT : has
 PRODUCT ||--o{ ORDER_ITEM : referenced
 
 USER {
@@ -102,6 +102,7 @@ ORDER {
     string status
     float totalAmount
     date createdAt
+    string stripeCheckoutSessionId
 }
 
 ORDER_ITEM {
@@ -110,11 +111,6 @@ ORDER_ITEM {
     float unitPrice
 }
 
-PAYMENT {
-    string id
-    string stripeSessionId
-    string status
-}
 ```
 
 ---

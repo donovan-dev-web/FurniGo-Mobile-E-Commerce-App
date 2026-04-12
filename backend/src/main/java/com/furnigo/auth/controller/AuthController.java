@@ -19,9 +19,4 @@ public class AuthController {
     public ResponseEntity<AuthResponse> googleLogin(@Valid @RequestBody GoogleAuthRequest request) {
         return ResponseEntity.ok(authService.authenticateWithGoogle(request));
     }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Auth module OK");
-    }
 }
