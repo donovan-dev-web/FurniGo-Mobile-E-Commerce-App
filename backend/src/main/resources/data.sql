@@ -1,3 +1,5 @@
+DELETE FROM order_items;
+DELETE FROM orders;
 DELETE FROM product_gallery_images;
 DELETE FROM products;
 

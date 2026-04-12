@@ -52,14 +52,14 @@ Retrouver l'ensemble de mes tâches avec une approche Agile.
 
 ## EPIC 5 — Commandes & Paiement
 
-| # | Titre | Labels | Milestone | liens |
-|---|---|---|---|---|
-| 19 | `[FEATURE] US-13 — API création commande (POST /orders)` | `type: feature` `scope: backend` `scope: payment` `priority: high` | MVP Backend Core | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/19) |
-| 20 | `[FEATURE] US-14 — Intégration Stripe Checkout Session` | `type: feature` `scope: backend` `scope: payment` `priority: high` | MVP Backend Core | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/20) |
-| 21 | `[FEATURE] US-14 — Webhook Stripe (payment_intent.succeeded)` | `type: feature` `scope: backend` `scope: payment` `priority: high` | MVP Backend Core | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/21) |
-| 22 | `[FEATURE] US-15 — Écran confirmation commande (mobile)` | `type: feature` `scope: mobile` `scope: payment` | MVP Mobile Core | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/22) |
-| 23 | `[FEATURE] US-16 — Écran historique commandes (mobile)` | `type: feature` `scope: mobile` | MVP Mobile Core | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/23) |
-| 24 | `[FEATURE] US-4 — Écran profil utilisateur (mobile)` | `type: feature` `scope: mobile` | MVP Mobile Core | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/24) |
+| # | Titre | Labels | Milestone | Statut actuel | liens |
+|---|---|---|---|---|---|
+| 19 | `[FEATURE] US-13 — API création commande (POST /orders)` | `type: feature` `scope: backend` `scope: payment` `priority: high` | MVP Backend Core | `implémentée et vérifiée` | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/19) |
+| 20 | `[FEATURE] US-14 — Intégration Stripe Checkout Session` | `type: feature` `scope: backend` `scope: payment` `priority: high` | MVP Backend Core | `implémentée` | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/20) |
+| 21 | `[FEATURE] US-14 — Webhook Stripe (payment_intent.succeeded)` | `type: feature` `scope: backend` `scope: payment` `priority: high` | MVP Backend Core | `implémentée` | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/21) |
+| 22 | `[FEATURE] US-15 — Écran confirmation commande (mobile)` | `type: feature` `scope: mobile` `scope: payment` | MVP Mobile Core | `à faire` | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/22) |
+| 23 | `[FEATURE] US-16 — Écran historique commandes (mobile)` | `type: feature` `scope: mobile` | MVP Mobile Core | `à faire` | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/23) |
+| 24 | `[FEATURE] US-4 — Écran profil utilisateur (mobile)` | `type: feature` `scope: mobile` | MVP Mobile Core | `à faire` | [voir la tâche](https://github.com/donovan-dev-web/FurniGo-Mobile-E-Commerce-App/issues/24) |
 
 ---
 
