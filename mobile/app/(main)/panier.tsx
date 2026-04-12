@@ -1,4 +1,4 @@
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View, Alert, Linking } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../context/ThemeContext";
@@ -7,6 +7,8 @@ import { buildUploadUrl } from "@/services/api";
 import { useCartStore } from "@/store/cartStore";
 import { formatProductPrice } from "@/services/productService";
 import { MainTopBar } from "@/components/navigation/MainTopBar";
+import { useState } from "react";
+import { createOrder, createCheckoutSession } from "@/services/orderService";
 
 export default function PanierScreen() {
   const { theme, isDark } = useTheme();
@@ -18,6 +20,29 @@ export default function PanierScreen() {
   const removeItem = useCartStore((state) => state.removeItem);
   const clearCart = useCartStore((state) => state.clearCart);
   const hasItems = items.length > 0;
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+
+  async function handleCheckout() {
+  if (!hasItems || isCheckingOut) return;
+  setIsCheckingOut(true);
+
+  try {
+    // 1. Créer la commande
+    const order = await createOrder(items);
+
+    // 2. Créer la session Stripe
+    const session = await createCheckoutSession(order.id);
+
+    // 3. Ouvrir Stripe dans le navigateur
+    await Linking.openURL(session.checkoutUrl);
+
+
+  } catch (error) {
+    Alert.alert("Erreur", "Impossible de lancer le paiement." + (error instanceof Error ? ` (${error.message})` : ""));
+  } finally {
+    setIsCheckingOut(false);
+  }
+}
 
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={[styles.safe, { backgroundColor: theme.colors.background }]}>
@@ -132,22 +157,21 @@ export default function PanierScreen() {
             <Text style={[styles.totalLabel, { color: theme.colors.textPrimary }]}>Total</Text>
             <Text style={[styles.totalPrice, { color: theme.colors.textPrimary }]}>{formatProductPrice(subtotal)}</Text>
           </View>
-          <Pressable
-            style={[
-              styles.checkoutButton,
-              { backgroundColor: isDark ? theme.colors.textPrimary : theme.colors.accent, opacity: hasItems ? 1 : 0.45 },
-            ]}
-            disabled={!hasItems}
-          >
-            <Text
+            <Pressable
               style={[
-                typography.labelLg,
-                { color: isDark ? theme.colors.background : theme.colors.textOnAccent },
+                styles.checkoutButton,
+                {
+                  backgroundColor: isDark ? theme.colors.textPrimary : theme.colors.accent,
+                  opacity: hasItems && !isCheckingOut ? 1 : 0.45,
+                },
               ]}
+              disabled={!hasItems || isCheckingOut}
+              onPress={handleCheckout}
             >
-              Passer a la commande
-            </Text>
-          </Pressable>
+              <Text style={[typography.labelLg, { color: isDark ? theme.colors.background : theme.colors.textOnAccent }]}>
+                {isCheckingOut ? "Chargement..." : "Passer à la commande"}
+              </Text>
+            </Pressable>
           {hasItems ? (
             <Pressable style={styles.clearButton} onPress={clearCart}>
               <Text style={[typography.labelMd, { color: theme.colors.textSecondary }]}>Vider le panier</Text>

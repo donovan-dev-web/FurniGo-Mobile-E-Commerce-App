@@ -6,9 +6,13 @@ import com.furnigo.order.service.OrderService;
 import com.furnigo.user.entity.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +33,11 @@ public class OrderController {
             @Valid @RequestBody CreateOrderRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(orderService.createOrder(currentUser, request));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrderResponse>> getOrders(
+            @AuthenticationPrincipal User currentUser) {
+        return ResponseEntity.ok(orderService.getOrders(currentUser));
     }
 }
