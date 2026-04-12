@@ -7,6 +7,7 @@ import com.furnigo.order.dto.OrderItemResponse;
 import com.furnigo.order.dto.OrderResponse;
 import com.furnigo.order.entity.Order;
 import com.furnigo.order.entity.OrderItem;
+import com.furnigo.order.entity.OrderStatus;
 import com.furnigo.order.repository.OrderRepository;
 import com.furnigo.product.entity.Product;
 import com.furnigo.product.repository.ProductRepository;
@@ -21,8 +22,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-
-    private static final String DEFAULT_ORDER_STATUS = "PENDING";
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
@@ -49,9 +48,13 @@ public class OrderService {
                     .build());
         }
 
+        if (orderItems.isEmpty()) {
+            throw new IllegalArgumentException("La commande doit contenir au moins un article");
+        }
+
         Order order = Order.builder()
                 .user(currentUser)
-                .status(DEFAULT_ORDER_STATUS)
+                .status(OrderStatus.PENDING)
                 .totalAmount(totalAmount)
                 .build();
 
