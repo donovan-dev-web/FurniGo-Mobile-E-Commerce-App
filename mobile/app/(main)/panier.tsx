@@ -29,16 +29,22 @@ export default function PanierScreen() {
   try {
     // 1. Créer la commande
     const order = await createOrder(items);
+    console.log(">>> [CHECKOUT] Commande créée :", order.id);
 
     // 2. Créer la session Stripe
     const session = await createCheckoutSession(order.id);
+    console.log(">>> [CHECKOUT] Session Stripe :", session.checkoutUrl);
 
     // 3. Ouvrir Stripe dans le navigateur
     await Linking.openURL(session.checkoutUrl);
 
 
-  } catch (error) {
-    Alert.alert("Erreur", "Impossible de lancer le paiement." + (error instanceof Error ? ` (${error.message})` : ""));
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.log(">>> [CHECKOUT] Erreur :", errorMessage);
+    console.log(">>> [CHECKOUT] Status :", (error as any)?.response?.status);
+    console.log(">>> [CHECKOUT] Data :", JSON.stringify((error as any)?.response?.data));
+    Alert.alert("Erreur", "Impossible de lancer le paiement. (" + errorMessage + ")");
   } finally {
     setIsCheckingOut(false);
   }
