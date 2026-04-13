@@ -15,10 +15,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const api = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_BASE_URL ?? "http://localhost:8080",
   timeout: 10_000,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
 });
+
+// Fonction pour mettre à jour la baseURL dynamiquement
+export function setApiBaseUrl(url: string) {
+  api.defaults.baseURL = url;
+}
 
 export function getApiBaseUrl(): string {
   return (api.defaults.baseURL ?? "http://localhost:8080").replace(/\/+$/, "");
@@ -36,6 +39,22 @@ export function buildUploadUrl(pathOrFileName: string | null | undefined): strin
     : `/uploads/products/${pathOrFileName.replace(/^\/+/, "")}`;
 
   return `${getApiBaseUrl()}${normalizedPath}`;
+}
+
+
+export async function pingBackend(url: string): Promise<boolean> {
+  try {
+    await axios.get(`${url}/actuator/health`, { timeout: 5_000 });
+    return true;
+  } catch {
+    // Fallback — essaie /products si actuator non dispo
+    try {
+      await axios.get(`${url}/products`, { timeout: 5_000 });
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }
 
 // ─────────────────────────────────────────────
