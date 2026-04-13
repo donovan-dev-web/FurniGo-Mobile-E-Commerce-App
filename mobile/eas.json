@@ -12,7 +12,16 @@
       "distribution": "internal"
     },
     "production": {
-      "autoIncrement": true
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_LOCAL_API_BASE_URL": "http://192.168.11.113:8080",
+        "EXPO_PUBLIC_API_BASE_URL": "https://furnigo-api.onrender.com",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "70469145699-tb7anq6v0a6gr62njutbs8belsun1qp2.apps.googleusercontent.com",
+        "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "70469145699-tb7anq6v0a6gr62njutbs8belsun1qp2.apps.googleusercontent.com",
+        "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "70469145699-tb7anq6v0a6gr62njutbs8belsun1qp2.apps.googleusercontent.com"
+      }
     }
   },
   "submit": {
