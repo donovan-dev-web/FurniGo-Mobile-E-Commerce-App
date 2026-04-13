@@ -128,6 +128,11 @@ export default function ProfilScreen() {
 
         <View style={styles.section}>
           <ActionRow
+            icon="shield-checkmark-outline"
+            label="Mes données (RGPD)"
+            onPress={() => router.push("/profil/rgpd")}
+          />
+          <ActionRow
             icon="download-outline"
             label="Exporter mes données (RGPD)"
             onPress={handleExport}
