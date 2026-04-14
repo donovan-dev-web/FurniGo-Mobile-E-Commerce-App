@@ -6,6 +6,7 @@ import {
   Switch,
   Text,
   View,
+  TextInput,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,7 +22,7 @@ type Status = "idle" | "loading" | "up" | "error";
 
 export default function BackendSelectScreen() {
   const { theme, isDark, setTheme } = useTheme();
-  const { selectedKey, setBackend, confirm } = useBackendStore();
+  const { selectedKey, setBackend, confirm, ip, port, setLocalConfig  } = useBackendStore();
   const [backendStatus, setBackendStatus] = useState<Status>("idle");
   const [connectionStatus, setConnectionStatus] = useState<Status>("idle");
 
@@ -115,6 +116,39 @@ const { initialize } = useAuthStore();
             {BACKENDS[selectedKey]}
           </Text>
         </View>
+
+        {selectedKey === "local" && (
+        <View style={{ gap: spacing.sm }}>
+          <TextInput
+            placeholder="Adresse IP (ex: 192.168.11.113)"
+            value={ip}
+            onChangeText={(value) => setLocalConfig(value, port)}
+            style={[
+              styles.input,
+              {
+                backgroundColor: theme.colors.backgroundTertiary,
+                color: theme.colors.textPrimary,
+              },
+            ]}
+            placeholderTextColor={theme.colors.textTertiary}
+          />
+
+          <TextInput
+            placeholder="Port (ex: 8080)"
+            value={port}
+            onChangeText={(value) => setLocalConfig(ip, value)}
+            keyboardType="numeric"
+            style={[
+              styles.input,
+              {
+                backgroundColor: theme.colors.backgroundTertiary,
+                color: theme.colors.textPrimary,
+              },
+            ]}
+            placeholderTextColor={theme.colors.textTertiary}
+          />
+        </View>
+      )}
 
         {/* Statuts */}
         <View style={[styles.card, { backgroundColor: isDark ? theme.colors.backgroundSecondary : "#FFFFFF", borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(45,52,53,0.06)" }]}>
@@ -260,4 +294,10 @@ const styles = StyleSheet.create({
   wakeButtonText: { ...typography.labelLg },
   launchButton: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: spacing.md, borderRadius: 18, minHeight: 56 },
   note: { ...typography.caption, textAlign: "center" },
+  input: {
+  borderRadius: 12,
+  paddingHorizontal: spacing.md,
+  paddingVertical: spacing.sm,
+  fontSize: 14,
+},
 });
