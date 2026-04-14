@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Pressable,
   StyleSheet,
+  Switch,
   Text,
   View,
 } from "react-native";
@@ -19,7 +20,7 @@ type BackendKey = keyof typeof BACKENDS;
 type Status = "idle" | "loading" | "up" | "error";
 
 export default function BackendSelectScreen() {
-  const { theme, isDark } = useTheme();
+  const { theme, isDark, setTheme } = useTheme();
   const { selectedKey, setBackend, confirm } = useBackendStore();
   const [backendStatus, setBackendStatus] = useState<Status>("idle");
   const [connectionStatus, setConnectionStatus] = useState<Status>("idle");
@@ -178,6 +179,11 @@ const { initialize } = useAuthStore();
         <Text style={[styles.note, { color: theme.colors.textTertiary }]}>
           Cet écran est présent à des fins de démonstration portfolio.
         </Text>
+
+        <Switch
+          value={isDark}
+          onValueChange={(value) => setTheme(value ? "dark" : "light")}
+        />
 
       </View>
     </SafeAreaView>

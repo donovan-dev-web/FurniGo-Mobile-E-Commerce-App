@@ -5,6 +5,7 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   View,
 } from "react-native";
@@ -25,7 +26,7 @@ type DrawerRoute = "/(main)/catalogue" | "/(main)/panier" | "/(main)/commandes" 
 const DRAWER_WIDTH = 318;
 
 export function AppDrawer({ visible, onClose }: AppDrawerProps) {
-  const { theme, isDark } = useTheme();
+  const { theme, isDark, setTheme } = useTheme();
   const pathname = usePathname();
   const { category } = useLocalSearchParams<{ category?: string }>();
   const translateX = useRef(new Animated.Value(-DRAWER_WIDTH)).current;
@@ -144,6 +145,16 @@ export function AppDrawer({ visible, onClose }: AppDrawerProps) {
                 onPress={() => navigateTo("/(main)/profil")}
               />
             </View>
+            <View style={[styles.section, { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(45,52,53,0.08)" }]}>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: spacing.sm }}>
+                <Text style={[styles.tagline, { color: theme.colors.textSecondary }]}>Light</Text>
+                <Switch
+                  value={isDark}
+                  onValueChange={(value) => setTheme(value ? "dark" : "light")}
+                />
+                <Text style={[styles.tagline, { color: theme.colors.textSecondary }]}> Dark</Text>
+              </View>
+          </View>
           </ScrollView>
         </Animated.View>
       </View>
