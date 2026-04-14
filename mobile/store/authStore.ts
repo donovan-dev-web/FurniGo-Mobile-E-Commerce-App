@@ -41,6 +41,8 @@ interface AuthState {
   setAuth: (token: string, user: AuthUser) => Promise<void>;
   /** Passe en mode invité */
   setGuest: () => void;
+  /** Quitte le mode invite et revient a l'etat non authentifie */
+  setUnauthenticated: () => Promise<void>;
   /** Déconnexion — supprime token et user */
   logout: () => Promise<void>;
 }
@@ -126,6 +128,11 @@ export const useAuthStore = create<AuthState>((set) => ({
   // ── setGuest ──────────────────────────────
   setGuest: () => {
     set({ status: "guest", token: null, user: null });
+  },
+
+  setUnauthenticated: async () => {
+    await AsyncStorage.multiRemove([STORAGE_KEY_TOKEN, STORAGE_KEY_USER]);
+    set({ status: "unauthenticated", token: null, user: null });
   },
 
   // ── logout ────────────────────────────────

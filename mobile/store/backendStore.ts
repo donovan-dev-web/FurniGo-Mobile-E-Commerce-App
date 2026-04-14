@@ -22,7 +22,7 @@ interface BackendState {
 
 export const useBackendStore = create<BackendState>((set, get) => ({
   selectedKey: "online",
-  ip: "192.168.1.1",
+  ip: "192.168.11.113",
   port: "8080",
   selectedUrl: BACKENDS.online,
   isConfirmed: false,

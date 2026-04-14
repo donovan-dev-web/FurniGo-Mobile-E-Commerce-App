@@ -24,6 +24,27 @@ export interface CheckoutSessionResponse {
   checkoutUrl: string;
 }
 
+export function getOrderStatusLabel(status: string): string {
+  switch (status) {
+    case "PENDING":
+      return "En attente";
+    case "PAID":
+      return "Payee";
+    case "FAILED":
+      return "Echouee";
+    default:
+      return status;
+  }
+}
+
+export function formatOrderDate(date: string): string {
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 // POST /orders
 export async function createOrder(cartItems: CartItem[]): Promise<Order> {
   const response = await api.post<Order>("/orders", {
@@ -50,4 +71,9 @@ export async function createCheckoutSession(
 export async function fetchOrders(): Promise<Order[]> {
   const response = await api.get<Order[]>("/orders");
   return response.data;
+}
+
+export async function fetchOrderById(orderId: string): Promise<Order | null> {
+  const orders = await fetchOrders();
+  return orders.find((order) => order.id === orderId) ?? null;
 }
