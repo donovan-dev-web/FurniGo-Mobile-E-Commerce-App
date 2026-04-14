@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 export const BACKENDS = {
-  local: "http://192.168.11.113:8080", // ← remplace par ton IP locale
-  online: "https://furnigo-api.onrender.com", // ← ton URL Render
+  local: process.env.EXPO_LOCAL_API_BASE_URL ?? "http://192.168.11.113:8080",
+  online: process.env.EXPO_PUBLIC_API_BASE_URL ?? "https://furnigo-api.onrender.com",
 };
 
 type BackendKey = keyof typeof BACKENDS;

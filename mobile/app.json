@@ -18,6 +18,7 @@
     },
     "android": {
       "package": "com.donodevweb.furnigo",
+      "usesCleartextTraffic": true,
       "intentFilters": [
         {
           "action": "VIEW",
