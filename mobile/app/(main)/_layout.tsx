@@ -134,6 +134,12 @@ export default function MainLayout() {
           }}
         />
         <Tabs.Screen
+          name="favoris"
+          options={{
+            href: null,
+          }}
+        />
+        <Tabs.Screen
           name="commandes"
           options={{
             title: "Commandes",

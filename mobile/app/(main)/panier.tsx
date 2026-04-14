@@ -3,9 +3,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
-import { buildUploadUrl } from "@/services/api";
 import { useCartStore } from "@/store/cartStore";
-import { formatProductPrice } from "@/services/productService";
+import { formatProductPrice, getCachedProductImageSource } from "@/services/productService";
 import { MainTopBar } from "@/components/navigation/MainTopBar";
 import { useState } from "react";
 import { createOrder, createCheckoutSession } from "@/services/orderService";
@@ -87,7 +86,7 @@ export default function PanierScreen() {
                 ]}
               >
                 <Image
-                  source={{ uri: buildUploadUrl(item.image) ?? "https://via.placeholder.com/400x400?text=FurniGo" }}
+                  source={getCachedProductImageSource(item.image)}
                   style={styles.itemImage}
                 />
                 <View style={styles.itemContent}>

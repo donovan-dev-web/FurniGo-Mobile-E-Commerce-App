@@ -12,8 +12,11 @@ import {
   getOrderStatusLabel,
   Order,
 } from "@/services/orderService";
-import { formatProductPrice, getProductById } from "@/services/productService";
-import { buildUploadUrl } from "@/services/api";
+import {
+  formatProductPrice,
+  getCachedProductImageSource,
+  getProductById,
+} from "@/services/productService";
 
 export default function OrderDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -233,11 +236,7 @@ export default function OrderDetailScreen() {
                 >
                   {productCovers[item.productId] ? (
                     <Image
-                      source={{
-                        uri:
-                          buildUploadUrl(productCovers[item.productId]) ??
-                          "https://via.placeholder.com/160?text=FurniGo",
-                      }}
+                      source={getCachedProductImageSource(productCovers[item.productId])}
                       style={styles.itemImage}
                     />
                   ) : (

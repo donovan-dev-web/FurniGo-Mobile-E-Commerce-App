@@ -6,11 +6,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Loader } from "@/components/ui/Loader";
 import { useTheme } from "@/context/ThemeContext";
 import { radius, spacing, typography } from "@/constants/theme";
-import { formatProductPrice, getProductById } from "@/services/productService";
+import {
+  formatProductPrice,
+  getCachedProductImageSource,
+  getProductById,
+  getProducts,
+  getSimilarProducts,
+} from "@/services/productService";
 import { Product } from "@/types/product";
-import { buildUploadUrl } from "@/services/api";
 import { useCartStore } from "@/store/cartStore";
 import { AddToCartModal } from "@/components/cart/AddToCartModal";
+import { FavoriteButton } from "@/components/product/FavoriteButton";
 
   const { width } = Dimensions.get("window");
   const ITEM_WIDTH = 320;
@@ -27,6 +33,7 @@ export default function ProductDetailScreen() {
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isAddToCartModalVisible, setIsAddToCartModalVisible] = useState(false);
+  const [similarProducts, setSimilarProducts] = useState<Product[]>([]);
   const addItem = useCartStore((state) => state.addItem);
   const totalItems = useCartStore((state) => state.getTotalItems());
 
@@ -41,7 +48,9 @@ export default function ProductDetailScreen() {
 
     try {
       const data = await getProductById(productId);
+      const allProducts = await getProducts();
       setProduct(data);
+      setSimilarProducts(getSimilarProducts(allProducts, data));
       setSelectedImageIndex(0);
     } catch (err: unknown) {
       const apiError = err as { response?: { data?: { message?: string } }; message?: string };
@@ -101,16 +110,19 @@ export default function ProductDetailScreen() {
           <Ionicons name="arrow-back" size={20} color={theme.colors.textPrimary} />
         </Pressable>
         <Text style={[styles.brand, { color: theme.colors.textPrimary }]}>FurniGo</Text>
-        <Pressable style={styles.iconButton} onPress={() => router.push("/(main)/panier")}>
-          <Ionicons name="cart-outline" size={22} color={theme.colors.textPrimary} />
-          {totalItems > 0 ? (
-            <View style={[styles.badge, { backgroundColor: theme.colors.accent }]}>
-              <Text style={[styles.badgeText, { color: theme.colors.textOnAccent }]}>
-                {totalItems > 99 ? "99+" : totalItems}
-              </Text>
-            </View>
-          ) : null}
-        </Pressable>
+        <View style={styles.topBarActions}>
+          <FavoriteButton product={product} />
+          <Pressable style={styles.iconButton} onPress={() => router.push("/(main)/panier")}>
+            <Ionicons name="cart-outline" size={22} color={theme.colors.textPrimary} />
+            {totalItems > 0 ? (
+              <View style={[styles.badge, { backgroundColor: theme.colors.accent }]}>
+                <Text style={[styles.badgeText, { color: theme.colors.textOnAccent }]}>
+                  {totalItems > 99 ? "99+" : totalItems}
+                </Text>
+              </View>
+            ) : null}
+          </Pressable>
+        </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
@@ -145,9 +157,7 @@ export default function ProductDetailScreen() {
               ]}
             >
                 <Image
-                  source={{
-                    uri: buildUploadUrl(image) ?? "https://via.placeholder.com/800x1000?text=FurniGo",
-                  }}
+                  source={getCachedProductImageSource(image)}
                   style={styles.heroImage}
                 />
               </View>
@@ -225,6 +235,46 @@ export default function ProductDetailScreen() {
             </Pressable>
           </View>
         </View>
+
+        {similarProducts.length > 0 ? (
+          <View style={styles.similarSection}>
+            <View style={styles.similarHeader}>
+              <Text style={[styles.similarTitle, { color: theme.colors.textPrimary }]}>
+                Produits similaires
+              </Text>
+              <Text style={[styles.similarMeta, { color: theme.colors.textSecondary }]}>
+                Selection FurniGo
+              </Text>
+            </View>
+
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.similarRow}>
+              {similarProducts.map((item) => (
+                <Pressable
+                  key={item.id}
+                  style={[
+                    styles.similarCard,
+                    {
+                      backgroundColor: isDark ? theme.colors.backgroundSecondary : "#FFFFFF",
+                      borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(45,52,53,0.06)",
+                    },
+                  ]}
+                  onPress={() => router.replace(`/product/${item.id}`)}
+                >
+                  <Image source={getCachedProductImageSource(item.coverImage)} style={styles.similarImage} />
+                  <Text style={[styles.similarName, { color: theme.colors.textPrimary }]} numberOfLines={2}>
+                    {item.name}
+                  </Text>
+                  <Text style={[styles.similarCategory, { color: theme.colors.textSecondary }]} numberOfLines={1}>
+                    {item.category ?? "Collection FurniGo"}
+                  </Text>
+                  <Text style={[styles.similarPrice, { color: theme.colors.accent }]}>
+                    {formatProductPrice(item.price)}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+          </View>
+        ) : null}
       </ScrollView>
 
       <View
@@ -306,6 +356,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  topBarActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
   },
   topBarTitle: {
     ...typography.headingSm,
@@ -465,6 +520,50 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: spacing.xl,
+  },
+  similarSection: {
+    marginTop: spacing.xxl,
+    paddingLeft: spacing.xl,
+  },
+  similarHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    paddingRight: spacing.xl,
+    marginBottom: spacing.md,
+  },
+  similarTitle: {
+    ...typography.displaySm,
+  },
+  similarMeta: {
+    ...typography.bodySm,
+  },
+  similarRow: {
+    gap: spacing.md,
+    paddingRight: spacing.xl,
+  },
+  similarCard: {
+    width: 170,
+    borderRadius: 24,
+    borderWidth: 1,
+    padding: spacing.md,
+  },
+  similarImage: {
+    width: "100%",
+    aspectRatio: 0.82,
+    borderRadius: 18,
+    marginBottom: spacing.md,
+  },
+  similarName: {
+    ...typography.labelLg,
+  },
+  similarCategory: {
+    ...typography.bodySm,
+    marginTop: 4,
+  },
+  similarPrice: {
+    ...typography.labelLg,
+    marginTop: spacing.sm,
   },
   quantityLabel: {
     ...typography.headingMd,

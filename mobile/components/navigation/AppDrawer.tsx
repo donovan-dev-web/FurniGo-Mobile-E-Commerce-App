@@ -21,7 +21,12 @@ interface AppDrawerProps {
   onClose: () => void;
 }
 
-type DrawerRoute = "/(main)/catalogue" | "/(main)/panier" | "/(main)/commandes" | "/(main)/profil";
+type DrawerRoute =
+  | "/(main)/catalogue"
+  | "/(main)/panier"
+  | "/(main)/favoris"
+  | "/(main)/commandes"
+  | "/(main)/profil";
 
 const DRAWER_WIDTH = 318;
 
@@ -131,6 +136,12 @@ export function AppDrawer({ visible, onClose }: AppDrawerProps) {
                 icon="cart-outline"
                 active={pathname === "/(main)/panier"}
                 onPress={() => navigateTo("/(main)/panier")}
+              />
+              <DrawerButton
+                label="Favoris"
+                icon="heart-outline"
+                active={pathname === "/(main)/favoris"}
+                onPress={() => navigateTo("/(main)/favoris")}
               />
               <DrawerButton
                 label="Commandes"

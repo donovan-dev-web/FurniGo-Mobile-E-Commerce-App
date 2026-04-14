@@ -7,11 +7,15 @@ import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
 import { Loader } from "@/components/ui/Loader";
 import { Product } from "@/types/product";
-import { formatProductPrice, getProducts } from "@/services/productService";
-import { buildUploadUrl } from "@/services/api";
+import {
+  formatProductPrice,
+  getCachedProductImageSource,
+  getProducts,
+} from "@/services/productService";
 import { MainTopBar } from "@/components/navigation/MainTopBar";
 import { AddToCartModal } from "@/components/cart/AddToCartModal";
 import { useCartStore } from "@/store/cartStore";
+import { FavoriteButton } from "@/components/product/FavoriteButton";
 
 export default function CatalogueScreen() {
   const { theme, isDark } = useTheme();
@@ -124,11 +128,7 @@ export default function CatalogueScreen() {
           ]}
         >
           <Image
-            source={{
-              uri:
-                buildUploadUrl(filteredProducts[0]?.coverImage) ??
-                "https://lh3.googleusercontent.com/aida-public/AB6AXuACAG5SPkL_H57DnCMUaUfx5s10GZIAzRI4Drepnt9tlJMZRzHxHqehQ_31Z9zwFxgD0L3fj_UebyeHFcn78PFUyu8wF2bkPOs0JOFUlmj0NXRAAcrO6lRGNrRwVrZ_UvBQ3ruK6DyIFL8fqi6sPtQQuRE_r5tzA2gCuk5O-YEuuxMDd1GeNhWhndHQ-hVTF-i_eltHqDDSMvTcRoJQ5OaHZzTlC4rrASm_J6DGGzH-3xeb2037qYluV0wBQ78aLjMK6_aKTIJNDoU",
-            }}
+            source={getCachedProductImageSource(filteredProducts[0]?.coverImage)}
             style={[styles.heroImage, { opacity: isDark ? 0.55 : 0.82 }]}
           />
           <View
@@ -222,27 +222,26 @@ export default function CatalogueScreen() {
                   ]}
                 >
                   <Image
-                    source={{
-                      uri:
-                        buildUploadUrl(product.coverImage) ??
-                        "https://via.placeholder.com/600x750?text=FurniGo",
-                    }}
+                    source={getCachedProductImageSource(product.coverImage)}
                     style={styles.productImage}
                   />
-                  <Pressable
-                    onPress={(event) => {
-                      event.stopPropagation();
-                      handleQuickAdd(product);
-                    }}
-                    style={[
-                      styles.addButton,
-                      {
-                        backgroundColor: isDark ? "rgba(12,15,15,0.88)" : "rgba(255,255,255,0.92)",
-                      },
-                    ]}
-                  >
-                    <Ionicons name="add" size={18} color={theme.colors.accent} />
-                  </Pressable>
+                  <View style={styles.productActions}>
+                    <FavoriteButton product={product} />
+                    <Pressable
+                      onPress={(event) => {
+                        event.stopPropagation();
+                        handleQuickAdd(product);
+                      }}
+                      style={[
+                        styles.addButton,
+                        {
+                          backgroundColor: isDark ? "rgba(12,15,15,0.88)" : "rgba(255,255,255,0.92)",
+                        },
+                      ]}
+                    >
+                      <Ionicons name="add" size={18} color={theme.colors.accent} />
+                    </Pressable>
+                  </View>
                 </View>
                 <Text style={[styles.productName, { color: theme.colors.textPrimary }]}>{product.name}</Text>
                 <Text style={[styles.productSubtitle, { color: theme.colors.textSecondary }]}>
@@ -344,14 +343,17 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginBottom: spacing.md,
   },
+  productActions: {
+    position: "absolute",
+    top: spacing.md,
+    right: spacing.md,
+    gap: spacing.sm,
+  },
   productImage: {
     width: "100%",
     height: "100%",
   },
   addButton: {
-    position: "absolute",
-    right: spacing.md,
-    bottom: spacing.md,
     width: 40,
     height: 40,
     borderRadius: 16,
