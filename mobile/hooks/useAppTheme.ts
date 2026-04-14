@@ -3,6 +3,8 @@
 // le thème FurniGo correspondant ainsi que des utilitaires pratiques.
 
 import { useColorScheme } from "react-native";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { lightTheme, darkTheme, AppTheme, ColorScheme } from "../constants/theme";
 
 // ─────────────────────────────────────────────
@@ -17,24 +19,52 @@ export interface UseAppThemeReturn {
   isDark: boolean;
   /** Clé à passer au composant SplashScreen pour choisir la bonne image */
   splashImage: "light" | "dark";
+
+  setTheme: (scheme: ColorScheme | "system") => void;
+  preference: ColorScheme | "system";
 }
+
+const STORAGE_KEY = "user-theme-preference";
 
 // ─────────────────────────────────────────────
 // Hook
 // ─────────────────────────────────────────────
 export function useAppTheme(): UseAppThemeReturn {
-  // useColorScheme retourne "light" | "dark" | null | undefined
-  // On normalise vers "light" par défaut si la valeur est absente.
   const systemScheme = useColorScheme();
-  const colorScheme: ColorScheme = systemScheme === "dark" ? "dark" : "light";
 
-const theme: AppTheme =
-  colorScheme === "dark" ? darkTheme : lightTheme;
-  
+  const [preference, setPreference] = useState<ColorScheme | "system">("system");
+
+  useEffect(() => {
+    (async () => {
+      const stored = await AsyncStorage.getItem(STORAGE_KEY);
+      if (stored === "light" || stored === "dark" || stored === "system") {
+        setPreference(stored);
+      }
+    })();
+  }, []);
+
+  const setTheme = async (scheme: ColorScheme | "system") => {
+    setPreference(scheme);
+    await AsyncStorage.setItem(STORAGE_KEY, scheme);
+  };
+
+  const effectiveScheme: ColorScheme =
+    preference === "system"
+      ? systemScheme === "dark"
+        ? "dark"
+        : "light"
+      : preference;
+
+  const theme: AppTheme =
+    effectiveScheme === "dark" ? darkTheme : lightTheme;
+
   return {
     theme,
-    colorScheme,
-    isDark: colorScheme === "dark",
+    colorScheme: effectiveScheme,
+    isDark: effectiveScheme === "dark",
     splashImage: theme.splash.image,
+
+    setTheme,
+    preference,
   };
 }

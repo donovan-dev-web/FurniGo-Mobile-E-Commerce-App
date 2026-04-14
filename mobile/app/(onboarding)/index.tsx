@@ -1,9 +1,20 @@
-import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import {
+  Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "@/context/ThemeContext";
+import { useAuthStore } from "@/store/authStore";
 import { useGuestStore } from "../../store/guestStore";
 import { radius, spacing, typography } from "@/constants/theme";
 
@@ -36,8 +47,11 @@ const STEPS = [
 
 export default function OnboardingScreen() {
   const { theme, isDark } = useTheme();
+  const setUnauthenticated = useAuthStore((state) => state.setUnauthenticated);
   const { markOnboardingDone } = useGuestStore();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollRef = useRef<ScrollView>(null);
+  const { width } = useWindowDimensions();
 
   const current = STEPS[currentIndex];
   const isLastStep = currentIndex === STEPS.length - 1;
@@ -47,12 +61,25 @@ export default function OnboardingScreen() {
     router.replace("/(main)/catalogue");
   }
 
+  async function handleBackToLogin() {
+    await setUnauthenticated();
+    router.replace("/(auth)/login");
+  }
+
   async function handleNext() {
     if (isLastStep) {
       await finish();
       return;
     }
-    setCurrentIndex((value) => value + 1);
+
+    const nextIndex = currentIndex + 1;
+    scrollRef.current?.scrollTo({ x: nextIndex * width, animated: true });
+    setCurrentIndex(nextIndex);
+  }
+
+  function handleScrollEnd(event: NativeSyntheticEvent<NativeScrollEvent>) {
+    const nextIndex = Math.round(event.nativeEvent.contentOffset.x / width);
+    setCurrentIndex(nextIndex);
   }
 
   return (
@@ -69,47 +96,69 @@ export default function OnboardingScreen() {
           )}
         </View>
 
-        <View style={styles.visualWrap}>
-          <View style={[styles.frameShadow, { backgroundColor: isDark ? "rgba(73,97,82,0.24)" : "rgba(192,219,201,0.28)" }]} />
-          <Image source={{ uri: current.image }} style={styles.visual} />
+        <ScrollView
+          ref={scrollRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
+          onMomentumScrollEnd={handleScrollEnd}
+          style={styles.carousel}
+          contentContainerStyle={styles.carouselContent}
+        >
+          {STEPS.map((step) => (
+            <View key={step.id} style={[styles.slide, { width }]}>
+              <View style={styles.visualWrap}>
+                <View
+                  style={[
+                    styles.frameShadow,
+                    {
+                      backgroundColor: isDark ? "rgba(73,97,82,0.24)" : "rgba(192,219,201,0.28)",
+                    },
+                  ]}
+                />
+                <Image source={{ uri: step.image }} style={styles.visual} />
 
-          {current.id === "cart" ? (
-            <View
-              style={[
-                styles.floatingCard,
-                {
-                  backgroundColor: isDark ? "rgba(45,52,53,0.92)" : "rgba(255,255,255,0.94)",
-                  borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(45,52,53,0.05)",
-                },
-              ]}
-            >
-              <View style={[styles.floatingIcon, { backgroundColor: theme.colors.accentMuted }]}>
-                <Ionicons name="cart" size={18} color={theme.colors.accent} />
-              </View>
-              <View>
-                <Text style={[styles.floatingTitle, { color: theme.colors.textPrimary }]}>Ajoute au panier</Text>
-                <Text style={[styles.floatingSubtitle, { color: theme.colors.textSecondary }]}>Vase en gres</Text>
+                {step.id === "cart" ? (
+                  <View
+                    style={[
+                      styles.floatingCard,
+                      {
+                        backgroundColor: isDark ? "rgba(45,52,53,0.92)" : "rgba(255,255,255,0.94)",
+                        borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(45,52,53,0.05)",
+                      },
+                    ]}
+                  >
+                    <View style={[styles.floatingIcon, { backgroundColor: theme.colors.accentMuted }]}>
+                      <Ionicons name="cart" size={18} color={theme.colors.accent} />
+                    </View>
+                    <View>
+                      <Text style={[styles.floatingTitle, { color: theme.colors.textPrimary }]}>Ajoute au panier</Text>
+                      <Text style={[styles.floatingSubtitle, { color: theme.colors.textSecondary }]}>Vase en gres</Text>
+                    </View>
+                  </View>
+                ) : null}
+
+                {step.id === "secure" ? (
+                  <View
+                    style={[
+                      styles.floatingBadge,
+                      {
+                        backgroundColor: isDark ? "rgba(45,52,53,0.86)" : "rgba(255,255,255,0.90)",
+                        borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(45,52,53,0.05)",
+                      },
+                    ]}
+                  >
+                    <Ionicons name="lock-closed" size={14} color={theme.colors.accent} />
+                    <Text style={[styles.floatingBadgeText, { color: theme.colors.textPrimary }]}>
+                      Transactions cryptees par Stripe
+                    </Text>
+                  </View>
+                ) : null}
               </View>
             </View>
-          ) : null}
-
-          {current.id === "secure" ? (
-            <View
-              style={[
-                styles.floatingBadge,
-                {
-                  backgroundColor: isDark ? "rgba(45,52,53,0.86)" : "rgba(255,255,255,0.90)",
-                  borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(45,52,53,0.05)",
-                },
-              ]}
-            >
-              <Ionicons name="lock-closed" size={14} color={theme.colors.accent} />
-              <Text style={[styles.floatingBadgeText, { color: theme.colors.textPrimary }]}>
-                Transactions cryptees par Stripe
-              </Text>
-            </View>
-          ) : null}
-        </View>
+          ))}
+        </ScrollView>
 
         <View style={styles.copyBlock}>
           <Text style={[styles.title, { color: theme.colors.textPrimary }]}>{current.title}</Text>
@@ -131,27 +180,44 @@ export default function OnboardingScreen() {
           ))}
         </View>
 
-        <Pressable
-          onPress={() => void handleNext()}
-          style={[
-            styles.primaryButton,
-            { backgroundColor: isLastStep ? theme.colors.textPrimary : theme.colors.accent },
-          ]}
-        >
-          <Text
+        <View style={styles.actionsRow}>
+          <Pressable
+            onPress={() => void handleBackToLogin()}
             style={[
-              styles.primaryButtonText,
-              { color: isLastStep ? theme.colors.background : theme.colors.textOnAccent },
+              styles.secondaryButton,
+              {
+                backgroundColor: isDark ? "rgba(255,255,255,0.04)" : theme.colors.backgroundSecondary,
+                borderColor: isDark ? "rgba(255,255,255,0.08)" : theme.colors.border,
+              },
             ]}
           >
-            {current.cta}
-          </Text>
-          <Ionicons
-            name={isLastStep ? "rocket-outline" : "arrow-forward"}
-            size={18}
-            color={isLastStep ? theme.colors.background : theme.colors.textOnAccent}
-          />
-        </Pressable>
+            <Text style={[styles.secondaryButtonText, { color: theme.colors.textPrimary }]}>
+              Se connecter
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => void handleNext()}
+            style={[
+              styles.primaryButton,
+              { backgroundColor: isLastStep ? theme.colors.textPrimary : theme.colors.accent },
+            ]}
+          >
+            <Text
+              style={[
+                styles.primaryButtonText,
+                { color: isLastStep ? theme.colors.background : theme.colors.textOnAccent },
+              ]}
+            >
+              {current.cta}
+            </Text>
+            <Ionicons
+              name={isLastStep ? "rocket-outline" : "arrow-forward"}
+              size={18}
+              color={isLastStep ? theme.colors.background : theme.colors.textOnAccent}
+            />
+          </Pressable>
+        </View>
 
         <Text style={[styles.bottomHint, { color: theme.colors.textTertiary }]}>
           Aucun frais cache • Annulation gratuite
@@ -194,6 +260,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: spacing.md,
     marginBottom: spacing.lg,
+    paddingHorizontal: spacing.xl,
+  },
+  carousel: {
+    marginHorizontal: -spacing.xl,
+  },
+  carouselContent: {
+    alignItems: "stretch",
+  },
+  slide: {
+    alignItems: "stretch",
   },
   frameShadow: {
     position: "absolute",
@@ -280,9 +356,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     gap: spacing.sm,
+    flex: 1.2,
   },
   primaryButtonText: {
     ...typography.labelLg,
+  },
+  actionsRow: {
+    flexDirection: "row",
+    gap: spacing.md,
+    alignItems: "stretch",
+  },
+  secondaryButton: {
+    minHeight: 56,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: spacing.lg,
+    flex: 1,
+  },
+  secondaryButtonText: {
+    ...typography.labelMd,
   },
   bottomHint: {
     ...typography.caption,

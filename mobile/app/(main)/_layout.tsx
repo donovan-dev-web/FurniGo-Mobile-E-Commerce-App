@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Platform, StyleSheet, View } from "react-native";
-import { Tabs, router } from "expo-router";
+import { Tabs, router, usePathname } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuthStore } from "../../store/authStore";
 import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
 import { useCartStore } from "@/store/cartStore";
+import { AuthRequiredModal } from "@/components/auth/AuthRequiredModal";
 
 type TabIconName = keyof typeof Ionicons.glyphMap;
 
@@ -35,6 +36,8 @@ export default function MainLayout() {
   const userId = useAuthStore((s) => s.user?.id);
   const insets = useSafeAreaInsets();
   const setCartOwner = useCartStore((s) => s.setOwner);
+  const pathname = usePathname();
+  const [lockedFeature, setLockedFeature] = useState<"profil" | "commandes" | null>(null);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -46,101 +49,149 @@ export default function MainLayout() {
     setCartOwner(status === "authenticated" ? userId : null);
   }, [setCartOwner, status, userId]);
 
+  useEffect(() => {
+    if (status !== "guest") {
+      return;
+    }
+
+    if (pathname === "/(main)/commandes") {
+      setLockedFeature("commandes");
+      router.replace("/(main)/catalogue");
+      return;
+    }
+
+    if (pathname === "/(main)/profil") {
+      setLockedFeature("profil");
+      router.replace("/(main)/catalogue");
+    }
+  }, [pathname, status]);
+
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        sceneStyle: {
-          backgroundColor: theme.colors.background,
-        },
-        tabBarStyle: {
-          position: "absolute",
-          left: spacing.lg,
-          right: spacing.lg,
-          bottom: 8,
-          height: (Platform.OS === "ios" ? 68 : 62) + Math.max(insets.bottom - 6, 0),
-          paddingTop: 8,
-          paddingBottom: 8,
-          paddingHorizontal: spacing.sm,
-          borderTopWidth: StyleSheet.hairlineWidth,
-          borderTopColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(45,52,53,0.08)",
-          borderRadius: 24,
-          backgroundColor: isDark ? "rgba(12,15,15,0.92)" : "rgba(217, 226, 215, 0.94)",
-          elevation: 0,
-          shadowColor: isDark ? "#000000" : "#2D3435",
-          shadowOpacity: isDark ? 0.4 : 0.08,
-          shadowRadius: 22,
-          shadowOffset: { width: 0, height: -6 },
-        },
-        tabBarActiveTintColor: isDark ? "#F9F9F9" : "#2D3435",
-        tabBarInactiveTintColor: theme.colors.textTertiary,
-        tabBarLabelStyle: {
-          ...typography.caption,
-          fontFamily: typography.labelMd.fontFamily,
-          fontSize: 10,
-          lineHeight: 12,
-          letterSpacing: 1.3,
-          textTransform: "uppercase",
-          marginTop: 2,
-        },
-        tabBarItemStyle: {
-          borderRadius: radius.lg,
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="catalogue"
-        options={{
-          title: "Catalogue",
-          tabBarLabel: "Catalogue",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon color={color} focused={focused} name={focused ? "home" : "home-outline"} />
-          ),
+    <>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          sceneStyle: {
+            backgroundColor: theme.colors.background,
+          },
+          tabBarStyle: {
+            position: "absolute",
+            left: spacing.lg,
+            right: spacing.lg,
+            bottom: 8,
+            height: (Platform.OS === "ios" ? 68 : 62) + Math.max(insets.bottom - 6, 0),
+            paddingTop: 8,
+            paddingBottom: 8,
+            paddingHorizontal: spacing.sm,
+            borderTopWidth: StyleSheet.hairlineWidth,
+            borderTopColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(45,52,53,0.08)",
+            borderRadius: 24,
+            backgroundColor: isDark ? "rgba(12,15,15,0.92)" : "rgba(217, 226, 215, 0.94)",
+            elevation: 0,
+            shadowColor: isDark ? "#000000" : "#2D3435",
+            shadowOpacity: isDark ? 0.4 : 0.08,
+            shadowRadius: 22,
+            shadowOffset: { width: 0, height: -6 },
+          },
+          tabBarActiveTintColor: isDark ? "#F9F9F9" : "#2D3435",
+          tabBarInactiveTintColor: theme.colors.textTertiary,
+          tabBarLabelStyle: {
+            ...typography.caption,
+            fontFamily: typography.labelMd.fontFamily,
+            fontSize: 10,
+            lineHeight: 12,
+            letterSpacing: 1.3,
+            textTransform: "uppercase",
+            marginTop: 2,
+          },
+          tabBarItemStyle: {
+            borderRadius: radius.lg,
+          },
         }}
-      />
-      <Tabs.Screen
-        name="panier"
-        options={{
-          title: "Panier",
-          tabBarLabel: "Panier",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              color={color}
-              focused={focused}
-              name={focused ? "cart" : "cart-outline"}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="commandes"
-        options={{
-          title: "Commandes",
-          tabBarLabel: "Commandes",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              color={color}
-              focused={focused}
-              name={focused ? "cube" : "cube-outline"}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profil"
-        options={{
-          title: "Profil",
-          tabBarLabel: "Profil",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              color={color}
-              focused={focused}
-              name={focused ? "person" : "person-outline"}
-            />
-          ),
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="catalogue"
+          options={{
+            title: "Catalogue",
+            tabBarLabel: "Catalogue",
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon color={color} focused={focused} name={focused ? "home" : "home-outline"} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="panier"
+          options={{
+            title: "Panier",
+            tabBarLabel: "Panier",
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                color={color}
+                focused={focused}
+                name={focused ? "cart" : "cart-outline"}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="favoris"
+          options={{
+            href: null,
+          }}
+        />
+        <Tabs.Screen
+          name="commandes"
+          options={{
+            title: "Commandes",
+            tabBarLabel: "Commandes",
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                color={color}
+                focused={focused}
+                name={focused ? "cube" : "cube-outline"}
+              />
+            ),
+          }}
+          listeners={{
+            tabPress: (event) => {
+              if (status === "guest") {
+                event.preventDefault();
+                setLockedFeature("commandes");
+              }
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="profil"
+          options={{
+            title: "Profil",
+            tabBarLabel: "Profil",
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                color={color}
+                focused={focused}
+                name={focused ? "person" : "person-outline"}
+              />
+            ),
+          }}
+          listeners={{
+            tabPress: (event) => {
+              if (status === "guest") {
+                event.preventDefault();
+                setLockedFeature("profil");
+              }
+            },
+          }}
+        />
+      </Tabs>
+      {lockedFeature ? (
+        <AuthRequiredModal
+          visible
+          feature={lockedFeature}
+          onClose={() => setLockedFeature(null)}
+        />
+      ) : null}
+    </>
   );
 }
 

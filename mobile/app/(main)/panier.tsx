@@ -3,15 +3,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
-import { buildUploadUrl } from "@/services/api";
 import { useCartStore } from "@/store/cartStore";
-import { formatProductPrice } from "@/services/productService";
+import { formatProductPrice, getCachedProductImageSource } from "@/services/productService";
 import { MainTopBar } from "@/components/navigation/MainTopBar";
 import { useState } from "react";
 import { createOrder, createCheckoutSession } from "@/services/orderService";
+import { useAuthStore } from "@/store/authStore";
+import { AuthRequiredModal } from "@/components/auth/AuthRequiredModal";
 
 export default function PanierScreen() {
   const { theme, isDark } = useTheme();
+  const status = useAuthStore((state) => state.status);
   const items = useCartStore((state) => state.items);
   const subtotal = useCartStore((state) => state.getSubtotal());
   const totalItems = useCartStore((state) => state.getTotalItems());
@@ -21,34 +23,36 @@ export default function PanierScreen() {
   const clearCart = useCartStore((state) => state.clearCart);
   const hasItems = items.length > 0;
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [isAuthModalVisible, setIsAuthModalVisible] = useState(false);
 
   async function handleCheckout() {
-  if (!hasItems || isCheckingOut) return;
-  setIsCheckingOut(true);
+    if (!hasItems || isCheckingOut) return;
 
-  try {
-    // 1. Créer la commande
-    const order = await createOrder(items);
-    console.log(">>> [CHECKOUT] Commande créée :", order.id);
+    if (status === "guest") {
+      setIsAuthModalVisible(true);
+      return;
+    }
 
-    // 2. Créer la session Stripe
-    const session = await createCheckoutSession(order.id);
-    console.log(">>> [CHECKOUT] Session Stripe :", session.checkoutUrl);
+    setIsCheckingOut(true);
 
-    // 3. Ouvrir Stripe dans le navigateur
-    await Linking.openURL(session.checkoutUrl);
+    try {
+      const order = await createOrder(items);
+      console.log(">>> [CHECKOUT] Commande créée :", order.id);
 
+      const session = await createCheckoutSession(order.id);
+      console.log(">>> [CHECKOUT] Session Stripe :", session.checkoutUrl);
 
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    console.log(">>> [CHECKOUT] Erreur :", errorMessage);
-    console.log(">>> [CHECKOUT] Status :", (error as any)?.response?.status);
-    console.log(">>> [CHECKOUT] Data :", JSON.stringify((error as any)?.response?.data));
-    Alert.alert("Erreur", "Impossible de lancer le paiement. (" + errorMessage + ")");
-  } finally {
-    setIsCheckingOut(false);
+      await Linking.openURL(session.checkoutUrl);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.log(">>> [CHECKOUT] Erreur :", errorMessage);
+      console.log(">>> [CHECKOUT] Status :", (error as any)?.response?.status);
+      console.log(">>> [CHECKOUT] Data :", JSON.stringify((error as any)?.response?.data));
+      Alert.alert("Erreur", "Impossible de lancer le paiement. (" + errorMessage + ")");
+    } finally {
+      setIsCheckingOut(false);
+    }
   }
-}
 
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={[styles.safe, { backgroundColor: theme.colors.background }]}>
@@ -82,7 +86,7 @@ export default function PanierScreen() {
                 ]}
               >
                 <Image
-                  source={{ uri: buildUploadUrl(item.image) ?? "https://via.placeholder.com/400x400?text=FurniGo" }}
+                  source={getCachedProductImageSource(item.image)}
                   style={styles.itemImage}
                 />
                 <View style={styles.itemContent}>
@@ -163,21 +167,26 @@ export default function PanierScreen() {
             <Text style={[styles.totalLabel, { color: theme.colors.textPrimary }]}>Total</Text>
             <Text style={[styles.totalPrice, { color: theme.colors.textPrimary }]}>{formatProductPrice(subtotal)}</Text>
           </View>
-            <Pressable
-              style={[
-                styles.checkoutButton,
-                {
-                  backgroundColor: isDark ? theme.colors.textPrimary : theme.colors.accent,
-                  opacity: hasItems && !isCheckingOut ? 1 : 0.45,
-                },
-              ]}
-              disabled={!hasItems || isCheckingOut}
-              onPress={handleCheckout}
-            >
-              <Text style={[typography.labelLg, { color: isDark ? theme.colors.background : theme.colors.textOnAccent }]}>
-                {isCheckingOut ? "Chargement..." : "Passer à la commande"}
-              </Text>
-            </Pressable>
+          {status === "guest" ? (
+            <Text style={[styles.guestHint, { color: theme.colors.textSecondary }]}>
+              Connectez-vous pour valider votre panier et acceder au paiement.
+            </Text>
+          ) : null}
+          <Pressable
+            style={[
+              styles.checkoutButton,
+              {
+                backgroundColor: isDark ? theme.colors.textPrimary : theme.colors.accent,
+                opacity: hasItems && !isCheckingOut ? 1 : 0.45,
+              },
+            ]}
+            disabled={!hasItems || isCheckingOut}
+            onPress={handleCheckout}
+          >
+            <Text style={[typography.labelLg, { color: isDark ? theme.colors.background : theme.colors.textOnAccent }]}>
+              {isCheckingOut ? "Chargement..." : "Passer à la commande"}
+            </Text>
+          </Pressable>
           {hasItems ? (
             <Pressable style={styles.clearButton} onPress={clearCart}>
               <Text style={[typography.labelMd, { color: theme.colors.textSecondary }]}>Vider le panier</Text>
@@ -185,6 +194,11 @@ export default function PanierScreen() {
           ) : null}
         </View>
       </ScrollView>
+      <AuthRequiredModal
+        visible={isAuthModalVisible}
+        feature="checkout"
+        onClose={() => setIsAuthModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }
@@ -298,6 +312,11 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
     paddingTop: spacing.lg,
     borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  guestHint: {
+    ...typography.bodySm,
+    marginTop: spacing.md,
+    textAlign: "center",
   },
   totalLabel: {
     fontFamily: typography.displaySm.fontFamily,

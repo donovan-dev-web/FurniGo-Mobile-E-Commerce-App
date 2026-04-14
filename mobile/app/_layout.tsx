@@ -101,6 +101,7 @@ export default function RootLayout() {
           */}
           <Stack.Screen name="index" />
           <Stack.Screen name="expo-auth-session" />
+          <Stack.Screen name="order/[id]" />
           <Stack.Screen name="product/[id]" />
           <Stack.Screen name="(auth)" />
           <Stack.Screen name="(onboarding)" />

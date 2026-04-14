@@ -1,10 +1,11 @@
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
+import { router } from "expo-router";
 import { useTheme } from "../../context/ThemeContext";
 import { radius, spacing, typography } from "../../constants/theme";
 import { MainTopBar } from "@/components/navigation/MainTopBar";
-import { fetchOrders, Order } from "@/services/orderService";
+import { fetchOrders, formatOrderDate, getOrderStatusLabel, Order } from "@/services/orderService";
 
 export default function CommandesScreen() {
   const { theme, isDark } = useTheme();
@@ -17,15 +18,6 @@ export default function CommandesScreen() {
       .catch(() => {})
       .finally(() => setIsLoading(false));
   }, []);
-
-  function getStatusLabel(status: string): string {
-    switch (status) {
-      case "PENDING": return "En attente";
-      case "PAID": return "Payée";
-      case "FAILED": return "Échouée";
-      default: return status;
-    }
-  }
 
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={[styles.safe, { backgroundColor: theme.colors.background }]}>
@@ -71,11 +63,7 @@ export default function CommandesScreen() {
                         Commande #{order.id.slice(0, 8).toUpperCase()}
                       </Text>
                       <Text style={[styles.orderDate, { color: theme.colors.textSecondary }]}>
-                        {new Date(order.createdAt).toLocaleDateString("fr-FR", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })}
+                        {formatOrderDate(order.createdAt)}
                       </Text>
                     </View>
                     <View
@@ -97,7 +85,7 @@ export default function CommandesScreen() {
                           { color: isPaid ? theme.colors.accent : theme.colors.textSecondary },
                         ]}
                       >
-                        {getStatusLabel(order.status)}
+                        {getOrderStatusLabel(order.status)}
                       </Text>
                     </View>
                   </View>
@@ -114,7 +102,7 @@ export default function CommandesScreen() {
                     <Text style={[styles.orderPrice, { color: theme.colors.textPrimary }]}>
                       {order.totalAmount.toLocaleString("fr-FR", { style: "currency", currency: "EUR" })}
                     </Text>
-                    <Pressable>
+                    <Pressable onPress={() => router.push(`/order/${order.id}`)}>
                       <Text style={[styles.actionText, { color: theme.colors.accent }]}>Détails</Text>
                     </Pressable>
                   </View>

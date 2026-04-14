@@ -3,8 +3,11 @@ import {
   ActivityIndicator,
   Pressable,
   StyleSheet,
+  Switch,
   Text,
   View,
+  TextInput,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,9 +21,11 @@ import { router } from "expo-router";
 type BackendKey = keyof typeof BACKENDS;
 type Status = "idle" | "loading" | "up" | "error";
 
+const LiveServerUrl = 'https://furnigo-api.onrender.com/swagger-ui/index.html';
+
 export default function BackendSelectScreen() {
-  const { theme, isDark } = useTheme();
-  const { selectedKey, setBackend, confirm } = useBackendStore();
+  const { theme, isDark, setTheme } = useTheme();
+  const { selectedKey, setBackend, confirm, ip, port, setLocalConfig  } = useBackendStore();
   const [backendStatus, setBackendStatus] = useState<Status>("idle");
   const [connectionStatus, setConnectionStatus] = useState<Status>("idle");
 
@@ -115,6 +120,39 @@ const { initialize } = useAuthStore();
           </Text>
         </View>
 
+        {selectedKey === "local" && (
+        <View style={{ gap: spacing.sm }}>
+          <TextInput
+            placeholder="Adresse IP (ex: 192.168.11.113)"
+            value={ip}
+            onChangeText={(value) => setLocalConfig(value, port)}
+            style={[
+              styles.input,
+              {
+                backgroundColor: theme.colors.backgroundTertiary,
+                color: theme.colors.textPrimary,
+              },
+            ]}
+            placeholderTextColor={theme.colors.textTertiary}
+          />
+
+          <TextInput
+            placeholder="Port (ex: 8080)"
+            value={port}
+            onChangeText={(value) => setLocalConfig(ip, value)}
+            keyboardType="numeric"
+            style={[
+              styles.input,
+              {
+                backgroundColor: theme.colors.backgroundTertiary,
+                color: theme.colors.textPrimary,
+              },
+            ]}
+            placeholderTextColor={theme.colors.textTertiary}
+          />
+        </View>
+      )}
+
         {/* Statuts */}
         <View style={[styles.card, { backgroundColor: isDark ? theme.colors.backgroundSecondary : "#FFFFFF", borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(45,52,53,0.06)" }]}>
           <Text style={[styles.sectionLabel, { color: theme.colors.textTertiary }]}>
@@ -157,6 +195,12 @@ const { initialize } = useAuthStore();
           </Text>
         </Pressable>
 
+          <Pressable onPress={() => Linking.openURL(LiveServerUrl)}>
+            <Text style={[styles.urlText, { color: theme.colors.accent }]}>
+              Voir les endpoints en direct
+            </Text>
+          </Pressable>
+
         {/* Bouton Lancer */}
         <Pressable
           onPress={handleLaunch}
@@ -178,6 +222,11 @@ const { initialize } = useAuthStore();
         <Text style={[styles.note, { color: theme.colors.textTertiary }]}>
           Cet écran est présent à des fins de démonstration portfolio.
         </Text>
+
+        <Switch
+          value={isDark}
+          onValueChange={(value) => setTheme(value ? "dark" : "light")}
+        />
 
       </View>
     </SafeAreaView>
@@ -254,4 +303,10 @@ const styles = StyleSheet.create({
   wakeButtonText: { ...typography.labelLg },
   launchButton: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: spacing.md, borderRadius: 18, minHeight: 56 },
   note: { ...typography.caption, textAlign: "center" },
+  input: {
+  borderRadius: 12,
+  paddingHorizontal: spacing.md,
+  paddingVertical: spacing.sm,
+  fontSize: 14,
+},
 });

@@ -1,9 +1,10 @@
-import { Pressable, StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuthStore } from "@/store/authStore";
 import { useGoogleAuth } from "@/hooks/useGoogleAuth";
 import { useTheme } from "@/context/ThemeContext";
 import { spacing, typography, radius } from "@/constants/theme";
+import { Loader } from "@/components/ui/Loader";
 
 export default function LoginScreen() {
   const { theme, isDark } = useTheme();
@@ -11,6 +12,22 @@ export default function LoginScreen() {
   const { signIn, state, error } = useGoogleAuth();
   const insets = useSafeAreaInsets();
   const isLoading = state === "loading";
+
+  if (isLoading) {
+    return (
+      <View style={[styles.loadingScreen, { backgroundColor: theme.colors.background }]}>
+        <Loader />
+        <View style={styles.loadingCopy}>
+          <Text style={[styles.loadingTitle, { color: theme.colors.textPrimary }]}>
+            Connexion en cours
+          </Text>
+          <Text style={[styles.loadingText, { color: theme.colors.textSecondary }]}>
+            Nous finalisons votre session Google avant de vous ouvrir le catalogue.
+          </Text>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -59,21 +76,16 @@ export default function LoginScreen() {
           <Pressable
             style={[
               styles.googleButton,
-              { backgroundColor: theme.colors.backgroundCTA, opacity: isLoading ? 0.8 : 1 },
+              { backgroundColor: theme.colors.backgroundCTA },
             ]}
             onPress={() => void signIn()}
-            disabled={isLoading}
           >
-            {isLoading ? (
-              <ActivityIndicator size="small" color={theme.colors.background} />
-            ) : (
-              <>
-                <Text style={styles.googleG}>G</Text>
-                <Text style={[styles.googleLabel, { color: theme.colors.background }]}>
-                  Se connecter avec Google
-                </Text>
-              </>
-            )}
+            <>
+              <Text style={styles.googleG}>G</Text>
+              <Text style={[styles.googleLabel, { color: theme.colors.background }]}>
+                Se connecter avec Google
+              </Text>
+            </>
           </Pressable>
 
           <View style={styles.divider}>
@@ -83,7 +95,7 @@ export default function LoginScreen() {
           </View>
 
 
-          <Pressable onPress={setGuest} disabled={isLoading} style={styles.guestButton}>
+          <Pressable onPress={setGuest} style={styles.guestButton}>
             <Text style={[styles.guestLabel, { color: theme.colors.textSecondary }]}>
               Continuer en tant qu&apos;invite
             </Text>
@@ -108,6 +120,25 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loadingScreen: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  loadingCopy: {
+    alignItems: "center",
+    paddingHorizontal: spacing.xl,
+    marginTop: spacing.xl,
+    gap: spacing.sm,
+  },
+  loadingTitle: {
+    ...typography.displaySm,
+    textAlign: "center",
+  },
+  loadingText: {
+    ...typography.bodyMd,
+    textAlign: "center",
+    maxWidth: 320,
   },
   backgroundImage: {
     transform: [{ scale: 1 }],
