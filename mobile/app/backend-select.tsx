@@ -7,6 +7,7 @@ import {
   Text,
   View,
   TextInput,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,6 +20,8 @@ import { router } from "expo-router";
 
 type BackendKey = keyof typeof BACKENDS;
 type Status = "idle" | "loading" | "up" | "error";
+
+const LiveServerUrl = 'https://furnigo-api.onrender.com/swagger-ui/index.html';
 
 export default function BackendSelectScreen() {
   const { theme, isDark, setTheme } = useTheme();
@@ -191,6 +194,12 @@ const { initialize } = useAuthStore();
             {isTesting ? "Test en cours..." : "Wake up & tester"}
           </Text>
         </Pressable>
+
+          <Pressable onPress={() => Linking.openURL(LiveServerUrl)}>
+            <Text style={[styles.urlText, { color: theme.colors.accent }]}>
+              Voir les endpoints en direct
+            </Text>
+          </Pressable>
 
         {/* Bouton Lancer */}
         <Pressable
